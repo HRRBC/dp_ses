@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'imagens/favicon.ico' %}" type="image/x-icon">
+    <title>Login</title>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+    body {
+        margin: 0;
+        font-family: 'Noto Sans', sans-serif;
+        background: #f0f8ff;
+    }
+
+    .top-title {
+        text-align: center;
+        padding: 30px 20px 10px 20px;
+        font-size: 60px;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .main-login {
+        width: 100vw;
+        height: calc(100vh - 100px);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .left-login {
+        width: 50vw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .left-login-image {
+        width: 40vw;
+        max-width: 700px;
+    }
+
+    .right-login {
+        width: 50vw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-login {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 40px 30px;
+        background: linear-gradient(145deg, #2e2e2e, #3a3a3a);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(56, 56, 56, 0.3);
+        color: #ffffff;
+        transition: all 0.3s ease;
+    }
+
+    .card-login:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-login > h1 {
+        color: #ffffff;
+        font-weight: 800;
+        margin: 0;
+    }
+
+    .text-field {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .text-field > input {
+        width: 100%;
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        padding: 15px;
+        background: #f8f9fa;
+        color: #495057;
+        font-size: 12pt;
+        box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.05);
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+    }
+
+    .text-field > input:focus {
+        border-color: #007bff;
+    }
+
+    .text-field > label {
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+
+    .text-field > input::placeholder {
+        color: #adb5bd;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 16px 0;
+        margin: 20px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: 3px;
+        color: #ffffff;
+        background-color: #007bff;
+        cursor: pointer;
+        box-shadow: 0px 10px 30px -10px rgba(0, 123, 255, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        background-color: #0056b3;
+        box-shadow: 0px 12px 35px -10px rgba(0, 123, 255, 0.6);
+        transform: translateY(-2px);
+    }
+
+    .error-msg {
+        color: #ff4d4d;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div class="top-title">
+        Seja bem-vindo! Faça login para acessar
+    </div>
+
+    <div class="main-login">
+        <div class="left-login">
+<img src="{% static 'imagens/medic.svg' %}" class="left-login-image" alt="Ilustração login">
+        </div>
+
+        <div class="right-login">
+            <form method="POST" class="card-login">
+                {% csrf_token %}
+                <h1>LOGIN</h1>
+
+                {% if error %}
+                    <div class="error-msg">{{ error }}</div>
+                {% endif %}
+
+                <div class="text-field">
+                    <label for="username">Usuário</label>
+                    <input type="text" name="username" id="username" placeholder="Usuário" required>
+                </div>
+                <div class="text-field">
+                    <label for="senha">Senha</label>
+                    <input type="password" name="senha" id="senha" placeholder="Senha" required>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
