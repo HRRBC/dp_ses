@@ -81,12 +81,11 @@
                             <select name="cargo" id="id_cargo" class="form-select" required>
                                 <option value="">Selecione o Cargo</option>
                                 <option value="medico" {% if colaborador.cargo == "medico" %}selected{% endif %}>Médico</option>
-                                <option value="enfermeiro" {% if colaborador.cargo == "enfermeiro" %}selected{% endif %}>Enfermeiro</option>
-                                <option value="tec_enfermagem" {% if colaborador.cargo == "tec_enfermagem" %}selected{% endif %}>Técnico de Enfermagem</option>
-                                <option value="aux_admin" {% if colaborador.cargo == "aux_admin" %}selected{% endif %}>Auxiliar Administrativo</option>
-                                <option value="coordenador" {% if colaborador.cargo == "coordenador" %}selected{% endif %}>Coordenador</option>
-                                <option value="gerente" {% if colaborador.cargo == "gerente" %}selected{% endif %}>Gerente</option>
+                                <option value="analista" {% if colaborador.cargo == "analista" %}selected{% endif %}>Analista em Saúde</option>
+                                <option value="assistente" {% if colaborador.cargo == "assistente" %}selected{% endif %}>Assistente em Saúde</option>
+                                <option value="auxiliar" {% if colaborador.cargo == "auxiliar" %}selected{% endif %}>Auxiliar em Saúde</option>
                             </select>
+
                         </div>
                         <div class="col-md-4">
                             <label for="id_funcao" class="form-label">Função Específica</label>
@@ -101,15 +100,22 @@
                             <label for="id_setor_trabalho" class="form-label">Setor de Trabalho</label>
                             <select name="setor_trabalho" id="id_setor_trabalho" class="form-select" required>
                                 <option value="">Selecione o Setor</option>
-                                <option value="emergencia" {% if colaborador.setor_trabalho == "emergencia" %}selected{% endif %}>Emergência</option>
-                                <option value="uti" {% if colaborador.setor_trabalho == "uti" %}selected{% endif %}>UTI</option>
-                                <option value="enfermaria" {% if colaborador.setor_trabalho == "enfermaria" %}selected{% endif %}>Enfermaria</option>
-                                <option value="administrativo" {% if colaborador.setor_trabalho == "administrativo" %}selected{% endif %}>Administrativo</option>
-                                <option value="cozinha" {% if colaborador.setor_trabalho == "cozinha" %}selected{% endif %}>Cozinha</option>
-                                <option value="higienizacao" {% if colaborador.setor_trabalho == "higienizacao" %}selected{% endif %}>Higienização</option>
+                                <option value="almoxarifado" {% if colaborador.setor_trabalho == "almoxarifado" %}selected{% endif %}>Almoxarifado</option>
+                                <option value="ambulatorio" {% if colaborador.setor_trabalho == "ambulatorio" %}selected{% endif %}>Ambulatório</option>
+                                <option value="bloco_cirurgico" {% if colaborador.setor_trabalho == "bloco_cirurgico" %}selected{% endif %}>Bloco Cirúrgico</option>
+                                <option value="ccih" {% if colaborador.setor_trabalho == "ccih" %}selected{% endif %}>CCIH</option>
+                                <option value="clinica_cirurgica" {% if colaborador.setor_trabalho == "clinica_cirurgica" %}selected{% endif %}>Clínica Cirúrgica</option>
+                                <option value="clinica_ortopedica" {% if colaborador.setor_trabalho == "clinica_ortopedica" %}selected{% endif %}>Clínica Ortopédica</option>
+                                <option value="epidemiologia" {% if colaborador.setor_trabalho == "epidemiologia" %}selected{% endif %}>Epidemiologia</option>
                                 <option value="farmacia" {% if colaborador.setor_trabalho == "farmacia" %}selected{% endif %}>Farmácia</option>
+                                <option value="imobilizacao" {% if colaborador.setor_trabalho == "imobilizacao" %}selected{% endif %}>Imobilização</option>
+                                <option value="maternidade" {% if colaborador.setor_trabalho == "maternidade" %}selected{% endif %}>Maternidade</option>
+                                <option value="recepcao" {% if colaborador.setor_trabalho == "recepcao" %}selected{% endif %}>Recepção</option>
+                                <option value="same" {% if colaborador.setor_trabalho == "same" %}selected{% endif %}>SAME</option>
+                                <option value="uti" {% if colaborador.setor_trabalho == "uti" %}selected{% endif %}>UTI</option>
                             </select>
                         </div>
+
                         <div class="col-md-4">
                             <label for="id_turno" class="form-label">Turno</label>
                             <select name="turno" id="id_turno" class="form-select" required>
@@ -118,8 +124,10 @@
                                 <option value="tarde" {% if colaborador.turno == "tarde" %}selected{% endif %}>Tarde</option>
                                 <option value="noite" {% if colaborador.turno == "noite" %}selected{% endif %}>Noite</option>
                                 <option value="integral" {% if colaborador.turno == "integral" %}selected{% endif %}>Integral</option>
+                                <option value="diarista" {% if colaborador.turno == "diarista" %}selected{% endif %}>Diarista</option>
                             </select>
                         </div>
+
                         <div class="col-md-4">
                             <label for="id_dias_trabalho" class="form-label">Dias de Trabalho</label>
                             <input type="text" name="dias_trabalho" id="id_dias_trabalho" class="form-control" value="{{ colaborador.dias_trabalho }}" required aria-describedby="diasTrabalhoHelp"/>
@@ -142,10 +150,12 @@
                                 <option value="ativo" {% if colaborador.status == "ativo" %}selected{% endif %}>Ativo</option>
                                 <option value="inativo" {% if colaborador.status == "inativo" %}selected{% endif %}>Inativo</option>
                                 <option value="ferias" {% if colaborador.status == "ferias" %}selected{% endif %}>Férias</option>
+                                <option value="licenca" {% if colaborador.status == "licenca" %}selected{% endif %}>Licença Premium</option>
                                 <option value="afastado" {% if colaborador.status == "afastado" %}selected{% endif %}>Afastado</option>
+                                <option value="demitido" {% if colaborador.status == "demitido" %}selected{% endif %}>Demitido</option>
                             </select>
                         </div>
-                    </div>
+
 
                     <div id="conselho_profissional_section" class="row g-4 mb-4">
                         <div class="col-md-4">

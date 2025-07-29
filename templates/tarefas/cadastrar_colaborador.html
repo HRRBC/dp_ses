@@ -77,15 +77,13 @@
                     <div class="row g-4 mb-4">
                         <div class="col-md-4">
                             <label for="id_cargo" class="form-label">Cargo</label>
-                            <select name="cargo" id="id_cargo" class="form-select" required>
-                                <option value="">Selecione o Cargo</option>
-                                <option value="medico">Médico</option>
-                                <option value="enfermeiro">Enfermeiro</option>
-                                <option value="tec_enfermagem">Técnico de Enfermagem</option>
-                                <option value="aux_admin">Auxiliar Administrativo</option>
-                                <option value="coordenador">Coordenador</option>
-                                <option value="gerente">Gerente</option>
-                            </select>
+                                <select name="cargo" id="id_cargo" class="form-select" required>
+                                    <option value="">Selecione o Cargo</option>
+                                    <option value="medico">Médico</option>
+                                    <option value="analista">Analista em Saúde</option>
+                                    <option value="assistente">Assistente em Saúde</option>
+                                    <option value="auxiliar">Auxiliar em Saúde</option>
+                                </select>
                         </div>
                         <div class="col-md-4">
                             <label for="id_funcao" class="form-label">Função Específica</label> {# Nome mais descritivo #}
@@ -100,13 +98,19 @@
                             <label for="id_setor_trabalho" class="form-label">Setor de Trabalho</label>
                             <select name="setor_trabalho" id="id_setor_trabalho" class="form-select" required>
                                 <option value="">Selecione o Setor</option>
-                                <option value="emergencia">Emergência</option>
-                                <option value="uti">UTI</option>
-                                <option value="enfermaria">Enfermaria</option>
-                                <option value="administrativo">Administrativo</option>
-                                <option value="cozinha">Cozinha</option>
-                                <option value="higienizacao">Higienização</option>
+                                <option value="almoxarifado">Almoxarifado</option>
+                                <option value="ambulatorio">Ambulatório</option>
+                                <option value="bloco_cirurgico">Bloco Cirúrgico</option>
+                                <option value="ccih">CCIH</option>
+                                <option value="clinica_cirurgica">Clínica Cirúrgica</option>
+                                <option value="clinica_ortopedica">Clínica Ortopédica</option>
+                                <option value="epidemiologia">Epidemiologia</option>
                                 <option value="farmacia">Farmácia</option>
+                                <option value="imobilizacao">Imobilização</option>
+                                <option value="maternidade">Maternidade</option>
+                                <option value="recepcao">Recepção</option>
+                                <option value="same">SAME</option>
+                                <option value="uti">UTI</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -117,6 +121,7 @@
                                 <option value="tarde">Tarde</option>
                                 <option value="noite">Noite</option>
                                 <option value="integral">Integral</option>
+                                <option value="diarista">Diarista</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -142,6 +147,8 @@
                                 <option value="inativo">Inativo</option>
                                 <option value="ferias">Férias</option>
                                 <option value="afastado">Afastado</option>
+                                <option value="licenca">Licença Premium</option>
+                                <option value="demitido">Demitido</option>
                             </select>
                         </div>
                     </div>
@@ -327,7 +334,7 @@
             // Lógica para mostrar/esconder a seção de Conselho Profissional
             function toggleConselhoFields() {
                 var cargo = $('#id_cargo').val();
-                if (cargo === 'medico' || cargo === 'enfermeiro' || cargo === 'tec_enfermagem') {
+                if (cargo === 'medico' || cargo === 'analista' || cargo === 'assistente') {
                     $('#conselho_profissional_section').show();
                     // Opcional: tornar os campos required dinamicamente se for o caso
                     $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').attr('required', true);
