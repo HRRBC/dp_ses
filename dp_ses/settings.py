@@ -70,25 +70,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dp_ses.wsgi.application'
 
+##########################################################################
+############# BANCO DE TESTE %+###########################################
+##########################################################################
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',  # Isso cria o arquivo no diretório do projeto
+#    }
+#}
+
+##########################################################################
+############# BANCO DE PRODUÇÃO ##########################################
+##########################################################################
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # Isso cria o arquivo no diretório do projeto
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dp_ses',
+        'USER': 'dba',
+        'PASSWORD': 'hrrbcdba',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
-# Database
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'dp_ses',
-#        'USER': 'dba',
-#        'PASSWORD': 'hrrbcdba',
-#        'HOST': 'localhost',
-#        'PORT': '5432',
-#    }
-#}
 
 
 # Password validation
