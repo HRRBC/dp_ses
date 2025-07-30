@@ -12,13 +12,11 @@ class Colaborador(models.Model):
     # 2. Dados Profissionais
     CARGO_CHOICES = [
         ('medico', 'Médico'),
-        ('enfermeiro', 'Enfermeiro'),
-        ('tec_enfermagem', 'Técnico de Enfermagem'),
-        ('aux_admin', 'Auxiliar Administrativo'),
-        ('coordenador', 'Coordenador'), # Adicionado
-        ('gerente', 'Gerente'),       # Adicionado
-        # adicione outros cargos necessários conforme seus formulários
+        ('analista', 'Analista em Saúde'),
+        ('assistente', 'Assistente em Saúde'),
+        ('auxiliar', 'Auxiliar em Saúde'),
     ]
+    
     cargo = models.CharField(max_length=20, choices=CARGO_CHOICES, verbose_name="Cargo", default='aux_admin')
     # Função: Tornada obrigatória e sem default
     funcao = models.CharField(max_length=100, verbose_name="Função Específica") # Verbose_name mais descritivo
@@ -27,14 +25,19 @@ class Colaborador(models.Model):
     nome_conselho = models.CharField(max_length=100, blank=True, null=True, verbose_name="Nome do conselho")
     
     SETOR_CHOICES = [
-        ('emergencia', 'Emergência'),
+        ('almoxarifado', 'Almoxarifado'),
+        ('ambulatorio', 'Ambulatório'),
+        ('bloco_cirurgico', 'Bloco Cirúrgico'),
+        ('ccih', 'CCIH'),
+        ('clinica_cirurgica', 'Clínica Cirúrgica'),
+        ('clinica_ortopedica', 'Clínica Ortopédica'),
+        ('epidemiologia', 'Epidemiologia'),
+        ('farmacia', 'Farmácia'),
+        ('imobilizacao', 'Imobilização'),
+        ('maternidade', 'Maternidade'),
+        ('recepcao', 'Recepção'),
+        ('same', 'SAME'),
         ('uti', 'UTI'),
-        ('enfermaria', 'Enfermaria'),
-        ('administrativo', 'Administrativo'),
-        ('cozinha', 'Cozinha'),
-        ('higienizacao', 'Higienização'),
-        ('farmacia', 'Farmácia'), # Corrigido para minúsculas e adicionado
-        # adicione outros setores necessários
     ]
     setor_trabalho = models.CharField(
         max_length=100,
@@ -48,8 +51,10 @@ class Colaborador(models.Model):
         ('tarde', 'Tarde'),
         ('noite', 'Noite'),
         ('integral', 'Integral'), # Adicionado
+        ('diarista', 'Diarista'), # Adicionado
+        
     ]
-    turno = models.CharField(max_length=10, choices=TURNO_CHOICES, verbose_name="Turno", default='manha')
+    turno = models.CharField(max_length=100, choices=TURNO_CHOICES, verbose_name="Turno", default='manha')
     
     dias_trabalho = models.CharField(max_length=100, verbose_name="Dias de trabalho", blank=True, null=True)
     # Jornada de trabalho: Tornada obrigatória e sem default
@@ -62,8 +67,10 @@ class Colaborador(models.Model):
         ('inativo', 'Inativo'),
         ('ferias', 'Férias'),      # Adicionado!
         ('afastado', 'Afastado'),  # Adicionado!
+        ('licenca', 'Licença Premium'),  # Adicionado!
+        ('demitido', 'Demitido'),  # Adicionado!
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, verbose_name="Status", default='ativo')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, verbose_name="Status", default='ativo')
 
     # Data de admissão: Removido default=timezone.now para ser preenchida manualmente
     data_admissao = models.DateField(verbose_name="Data de admissão")
@@ -92,7 +99,7 @@ class Colaborador(models.Model):
     titulo_eleitor = models.CharField(max_length=20, blank=True, null=True, verbose_name="Título de eleitor")
     zona_eleitoral = models.CharField(max_length=10, blank=True, null=True, verbose_name="Zona eleitoral")
     secao_eleitoral = models.CharField(max_length=10, blank=True, null=True, verbose_name="Seção eleitoral")
-    estado_vota = models.CharField(max_length=2, blank=True, null=True, verbose_name="Estado onde vota")
+    estado_vota = models.CharField(max_length=20, blank=True, null=True, verbose_name="Estado onde vota")
 
     # RG completo: Tornada obrigatória e sem default
     rg_completo = models.CharField(max_length=50, verbose_name="RG (Número e órgão emissor)")
@@ -104,7 +111,7 @@ class Colaborador(models.Model):
     # Série da CTPS: Tornada obrigatória e sem default
     serie_ctps = models.CharField(max_length=20, verbose_name="Série da CTPS")
     # UF da CTPS: Tornada obrigatória e sem default
-    uf_ctps = models.CharField(max_length=2, verbose_name="UF da CTPS")
+    uf_ctps = models.CharField(max_length=20, verbose_name="UF da CTPS")
 
     documento_militar = models.CharField(max_length=50, blank=True, null=True, verbose_name="Documento militar")
 
@@ -134,7 +141,7 @@ class Colaborador(models.Model):
     # Cidade: Tornada obrigatória e sem default
     cidade = models.CharField(max_length=100, verbose_name="Cidade")
     # UF: Tornada obrigatória e sem default
-    uf = models.CharField(max_length=2, verbose_name="UF")
+    uf = models.CharField(max_length=20, verbose_name="UF")
 
     # NOVO CAMPO: Observações
     observacoes = models.TextField(

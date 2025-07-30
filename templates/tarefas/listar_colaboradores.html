@@ -184,10 +184,21 @@
                 <label for="id_setor" class="block font-semibold mb-1 text-gray-700">Setor de Trabalho</label>
                 <select id="id_setor" name="setor" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500">
                     <option value="">Todos os setores</option>
-                    {% for setor in setores %}
-                        <option value="{{ setor }}" {% if filtro_setor == setor %}selected{% endif %}>{{ setor }}</option>
-                    {% endfor %}
+                    <option value="almoxarifado" {% if filtro_setor == "almoxarifado" %}selected{% endif %}>Almoxarifado</option>
+                    <option value="ambulatorio" {% if filtro_setor == "ambulatorio" %}selected{% endif %}>Ambulatório</option>
+                    <option value="bloco_cirurgico" {% if filtro_setor == "bloco_cirurgico" %}selected{% endif %}>Bloco Cirúrgico</option>
+                    <option value="ccih" {% if filtro_setor == "ccih" %}selected{% endif %}>CCIH</option>
+                    <option value="clinica_cirurgica" {% if filtro_setor == "clinica_cirurgica" %}selected{% endif %}>Clínica Cirúrgica</option>
+                    <option value="clinica_ortopedica" {% if filtro_setor == "clinica_ortopedica" %}selected{% endif %}>Clínica Ortopédica</option>
+                    <option value="epidemiologia" {% if filtro_setor == "epidemiologia" %}selected{% endif %}>Epidemiologia</option>
+                    <option value="farmacia" {% if filtro_setor == "farmacia" %}selected{% endif %}>Farmácia</option>
+                    <option value="imobilizacao" {% if filtro_setor == "imobilizacao" %}selected{% endif %}>Imobilização</option>
+                    <option value="maternidade" {% if filtro_setor == "maternidade" %}selected{% endif %}>Maternidade</option>
+                    <option value="recepcao" {% if filtro_setor == "recepcao" %}selected{% endif %}>Recepção</option>
+                    <option value="same" {% if filtro_setor == "same" %}selected{% endif %}>SAME</option>
+                    <option value="uti" {% if filtro_setor == "uti" %}selected{% endif %}>UTI</option>
                 </select>
+
             </div>
             <div>
                 <label for="id_status" class="block font-semibold mb-1 text-gray-700">Status do Colaborador</label>
@@ -197,6 +208,7 @@
                     <option value="inativo" {% if filtro_status == "inativo" %}selected{% endif %}>Inativo</option>
                     <option value="ferias" {% if filtro_status == "ferias" %}selected{% endif %}>Férias</option>
                     <option value="afastado" {% if filtro_status == "afastado" %}selected{% endif %}>Afastado</option>
+                    <option value="licenca" {% if filtro_status == "licenca" %}selected{% endif %}>Licença Premium</option>
                 </select>
             </div>
             <div class="flex items-end gap-3 mt-auto col-span-full">
@@ -240,12 +252,18 @@
                                     bg-blue-100 text-blue-800
                                 {% elif colaborador.status == 'afastado' %}
                                     bg-orange-100 text-orange-800
-                                {% else %} {# Inativo #}
+                                {% elif colaborador.status == 'licenca' %}
+                                    bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'demitido' %}
+                                    bg-red-200 text-red-900
+                                {% else %} {# Inativo ou outros #}
                                     bg-red-100 text-red-800
                                 {% endif %}">
                                 {% if colaborador.status == 'ativo' %}✔ Ativo
                                 {% elif colaborador.status == 'ferias' %}☀️ Férias
                                 {% elif colaborador.status == 'afastado' %}⚠️ Afastado
+                                {% elif colaborador.status == 'licenca' %}💎 Licença Premium
+                                {% elif colaborador.status == 'demitido' %}🛑 Demitido
                                 {% else %}❌ Inativo
                                 {% endif %}
                             </span>

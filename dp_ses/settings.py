@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-53@wq@km4ph*8&u0qdg0z(^0qx%wvks4%vg#_%9whbrp38%c-x
 DEBUG = False
 
 # Coloque o IP ou host da sua máquina na rede local, por segurança
-ALLOWED_HOSTS = ['192.168.x.x', 'localhost']  # Substitua 192.168.x.x pelo IP da VM
+ALLOWED_HOSTS = ['*']  # Substitua 192.168.x.x pelo IP da VM
 
 
 # Application definition
@@ -70,8 +70,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dp_ses.wsgi.application'
 
+##########################################################################
+############# BANCO DE TESTE %+###########################################
+##########################################################################
 
-# Database
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',  # Isso cria o arquivo no diretório do projeto
+#    }
+#}
+
+##########################################################################
+############# BANCO DE PRODUÇÃO ##########################################
+##########################################################################
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
