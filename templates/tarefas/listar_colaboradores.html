@@ -197,6 +197,7 @@
                     <option value="recepcao" {% if filtro_setor == "recepcao" %}selected{% endif %}>Recepção</option>
                     <option value="same" {% if filtro_setor == "same" %}selected{% endif %}>SAME</option>
                     <option value="uti" {% if filtro_setor == "uti" %}selected{% endif %}>UTI</option>
+                    <option value="dp" {% if filtro_setor == "dp" %}selected{% endif %}>Departamento Pessoal</option>
                 </select>
 
             </div>
@@ -254,16 +255,40 @@
                                     bg-orange-100 text-orange-800
                                 {% elif colaborador.status == 'licenca' %}
                                     bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'licencan' %}
+                                    bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'licencag' %}
+                                    bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'licencam' %}
+                                    bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'licencae' %}
+                                    bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'licencat' %}
+                                    bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'licencaedu' %}
+                                    bg-purple-100 text-purple-800
+                                {% elif colaborador.status == 'licencapremio' %}
+                                    bg-purple-100 text-purple-800
                                 {% elif colaborador.status == 'demitido' %}
                                     bg-red-200 text-red-900
-                                {% else %} {# Inativo ou outros #}
+                                {% elif colaborador.status == 'exonerado' %}
+                                    bg-gray-300 text-gray-800
+                                {% else %}
                                     bg-red-100 text-red-800
                                 {% endif %}">
                                 {% if colaborador.status == 'ativo' %}✔ Ativo
                                 {% elif colaborador.status == 'ferias' %}☀️ Férias
                                 {% elif colaborador.status == 'afastado' %}⚠️ Afastado
-                                {% elif colaborador.status == 'licenca' %}💎 Licença Premium
+                                {% elif colaborador.status == 'licencan' %}💐 Licença Nojo
+                                {% elif colaborador.status == 'licencag' %}💍 Licença Gala
+                                {% elif colaborador.status == 'licencam' %}🤰 Licença Maternidade
+                                {% elif colaborador.status == 'licencap' %}👶 Licença Paternidade
+                                {% elif colaborador.status == 'licencae' %}🗳️ Licença Eleitoral
+                                {% elif colaborador.status == 'licencat' %}📄 Licença Trato Pessoal
+                                {% elif colaborador.status == 'licencaedu' %}📚 Licença Estudo
+                                {% elif colaborador.status == 'licencapremio' %}💎 Licença Prêmio
                                 {% elif colaborador.status == 'demitido' %}🛑 Demitido
+                                {% elif colaborador.status == 'exonerado' %}🚪 Exonerado
                                 {% else %}❌ Inativo
                                 {% endif %}
                             </span>

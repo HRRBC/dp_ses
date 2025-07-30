@@ -147,8 +147,16 @@
                                 <option value="inativo">Inativo</option>
                                 <option value="ferias">Férias</option>
                                 <option value="afastado">Afastado</option>
-                                <option value="licenca">Licença Premium</option>
+                                <option value="licencan">Licença Nojo</option>
+                                <option value="licencag">Licença Gala</option>
+                                <option value="licencam">Licença Maternidade</option>
+                                <option value="licencap">Licença Paternidade</option>
+                                <option value="licencae">Licença Eleitoral</option>
+                                <option value="licencat">Licença de Trato e Interesse Particular</option>
+                                <option value="licencaedu">Licença Estudo</option>
+                                <option value="licencapremio">Licença Prêmio</option>
                                 <option value="demitido">Demitido</option>
+                                <option value="exonerado">Exonerado</option>
                             </select>
                         </div>
                     </div>
@@ -191,17 +199,26 @@
                             <label for="id_naturalidade" class="form-label">Naturalidade (Cidade/UF)</label>
                             <input type="text" name="naturalidade" id="id_naturalidade" class="form-control" required placeholder="Ex: Recife/PE"/>
                         </div>
-                        <div class="col-md-4">
-                            <label for="id_estado_civil" class="form-label">Estado Civil</label>
-                            <select name="estado_civil" id="id_estado_civil" class="form-select" required>
-                                <option value="">Selecione</option>
-                                <option value="solteiro">Solteiro(a)</option>
-                                <option value="casado">Casado(a)</option>
-                                <option value="divorciado">Divorciado(a)</option>
-                                <option value="viuvo">Viúvo(a)</option>
-                                <option value="uniao_estavel">União Estável</option>
-                            </select>
-                        </div>
+                            <div class="col-md-4">
+                                <label for="id_status" class="form-label">Status</label>
+                                <select name="status" id="id_status" class="form-select" required>
+                                    <option value="">Selecione o Status</option>
+                                    <option value="ativo" {% if colaborador.status == "ativo" %}selected{% endif %}>Ativo</option>
+                                    <option value="inativo" {% if colaborador.status == "inativo" %}selected{% endif %}>Inativo</option>
+                                    <option value="ferias" {% if colaborador.status == "ferias" %}selected{% endif %}>Férias</option>
+                                    <option value="afastado" {% if colaborador.status == "afastado" %}selected{% endif %}>Afastado</option>
+                                    <option value="licencan" {% if colaborador.status == "licencan" %}selected{% endif %}>Licença Nojo</option>
+                                    <option value="licencag" {% if colaborador.status == "licencag" %}selected{% endif %}>Licença Gala</option>
+                                    <option value="licencam" {% if colaborador.status == "licencam" %}selected{% endif %}>Licença Maternidade</option>
+                                    <option value="licencap" {% if colaborador.status == "licencap" %}selected{% endif %}>Licença Paternidade</option>
+                                    <option value="licencae" {% if colaborador.status == "licencae" %}selected{% endif %}>Licença Eleitoral</option>
+                                    <option value="licencat" {% if colaborador.status == "licencat" %}selected{% endif %}>Licença de Trato e Interesse Particular</option>
+                                    <option value="licencaedu" {% if colaborador.status == "licencaedu" %}selected{% endif %}>Licença Estudo</option>
+                                    <option value="licencapremio" {% if colaborador.status == "licencapremio" %}selected{% endif %}>Licença Prêmio</option>
+                                    <option value="demitido" {% if colaborador.status == "demitido" %}selected{% endif %}>Demitido</option>
+                                    <option value="exonerado" {% if colaborador.status == "exonerado" %}selected{% endif %}>Exonerado</option>
+                                </select>
+                            </div>
                         <div class="col-md-4">
                             <label for="id_cpf" class="form-label">CPF</label>
                             <input type="text" name="cpf" id="id_cpf" class="form-control cpf-mask" required placeholder="000.000.000-00"/>
@@ -332,18 +349,21 @@
             $('.sp-phones').mask('(00) 0000-0000'); // Telefones fixos brasileiros
 
             // Lógica para mostrar/esconder a seção de Conselho Profissional
-            function toggleConselhoFields() {
-                var cargo = $('#id_cargo').val();
-                if (cargo === 'medico' || cargo === 'analista' || cargo === 'assistente') {
-                    $('#conselho_profissional_section').show();
-                    // Opcional: tornar os campos required dinamicamente se for o caso
-                    $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').attr('required', true);
-                } else {
-                    $('#conselho_profissional_section').hide();
-                    // Opcional: remover o required se não for o caso
-                    $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
+                function toggleConselhoFields() {
+                    var cargo = $('#id_cargo').val();
+
+                    if (cargo === 'medico' || cargo === 'analista') {
+                        $('#conselho_profissional_section').show();
+                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').attr('required', true);
+                    } else if (cargo === 'assistente') {
+                        $('#conselho_profissional_section').show();
+                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
+                    } else {
+                        $('#conselho_profissional_section').hide();
+                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
+                    }
                 }
-            }
+
 
             // Chama a função ao carregar a página e ao mudar o cargo
             toggleConselhoFields();

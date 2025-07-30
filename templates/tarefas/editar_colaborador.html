@@ -113,6 +113,7 @@
                                 <option value="recepcao" {% if colaborador.setor_trabalho == "recepcao" %}selected{% endif %}>Recepção</option>
                                 <option value="same" {% if colaborador.setor_trabalho == "same" %}selected{% endif %}>SAME</option>
                                 <option value="uti" {% if colaborador.setor_trabalho == "uti" %}selected{% endif %}>UTI</option>
+                                <option value="dp" {% if colaborador.setor_trabalho == "dp" %}selected{% endif %}>Departamento Pessoal</option>
                             </select>
                         </div>
 
@@ -143,18 +144,27 @@
                             <input type="text" name="tipo_contrato" id="id_tipo_contrato" class="form-control" value="{{ colaborador.tipo_contrato }}" required aria-describedby="contratoHelp"/>
                             <div id="contratoHelp" class="form-text">Ex: CLT, PJ, Estágio</div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="id_status" class="form-label">Status</label>
-                            <select name="status" id="id_status" class="form-select" required>
-                                <option value="">Selecione o Status</option>
-                                <option value="ativo" {% if colaborador.status == "ativo" %}selected{% endif %}>Ativo</option>
-                                <option value="inativo" {% if colaborador.status == "inativo" %}selected{% endif %}>Inativo</option>
-                                <option value="ferias" {% if colaborador.status == "ferias" %}selected{% endif %}>Férias</option>
-                                <option value="licenca" {% if colaborador.status == "licenca" %}selected{% endif %}>Licença Premium</option>
-                                <option value="afastado" {% if colaborador.status == "afastado" %}selected{% endif %}>Afastado</option>
-                                <option value="demitido" {% if colaborador.status == "demitido" %}selected{% endif %}>Demitido</option>
-                            </select>
-                        </div>
+                    <div class="col-md-4">
+                        <label for="id_status" class="form-label">Status</label>
+                        <select name="status" id="id_status" class="form-select" required>
+                            <option value="">Selecione o Status</option>
+                            <option value="ativo" {% if colaborador.status == "ativo" %}selected{% endif %}>Ativo</option>
+                            <option value="inativo" {% if colaborador.status == "inativo" %}selected{% endif %}>Inativo</option>
+                            <option value="ferias" {% if colaborador.status == "ferias" %}selected{% endif %}>Férias</option>
+                            <option value="afastado" {% if colaborador.status == "afastado" %}selected{% endif %}>Afastado</option>
+                            <option value="licencan" {% if colaborador.status == "licencan" %}selected{% endif %}>Licença Nojo</option>
+                            <option value="licencag" {% if colaborador.status == "licencag" %}selected{% endif %}>Licença Gala</option>
+                            <option value="licencam" {% if colaborador.status == "licencam" %}selected{% endif %}>Licença Maternidade</option>
+                            <option value="licencap" {% if colaborador.status == "licencap" %}selected{% endif %}>Licença Paternidade</option>
+                            <option value="licencae" {% if colaborador.status == "licencae" %}selected{% endif %}>Licença Eleitoral</option>
+                            <option value="licencat" {% if colaborador.status == "licencat" %}selected{% endif %}>Licença de Trato e Interesse Particular</option>
+                            <option value="licencaedu" {% if colaborador.status == "licencaedu" %}selected{% endif %}>Licença Estudo</option>
+                            <option value="licencapremio" {% if colaborador.status == "licencapremio" %}selected{% endif %}>Licença Prêmio</option>
+                            <option value="demitido" {% if colaborador.status == "demitido" %}selected{% endif %}>Demitido</option>
+                            <option value="exonerado" {% if colaborador.status == "exonerado" %}selected{% endif %}>Exonerado</option>
+                        </select>
+                    </div>
+
 
 
                     <div id="conselho_profissional_section" class="row g-4 mb-4">
@@ -335,18 +345,20 @@
             $('.sp-phones').mask('(00) 0000-0000'); // Telefones fixos brasileiros
 
             // Lógica para mostrar/esconder a seção de Conselho Profissional
-            function toggleConselhoFields() {
-                var cargo = $('#id_cargo').val();
-                if (cargo === 'medico' || cargo === 'enfermeiro' || cargo === 'tec_enfermagem') {
-                    $('#conselho_profissional_section').show();
-                    // Opcional: tornar os campos required dinamicamente se for o caso
-                    $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').attr('required', true);
-                } else {
-                    $('#conselho_profissional_section').hide();
-                    // Opcional: remover o required se não for o caso
-                    $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
+                function toggleConselhoFields() {
+                    var cargo = $('#id_cargo').val();
+
+                    if (cargo === 'medico' || cargo === 'analista') {
+                        $('#conselho_profissional_section').show();
+                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').attr('required', true);
+                    } else if (cargo === 'assistente') {
+                        $('#conselho_profissional_section').show();
+                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
+                    } else {
+                        $('#conselho_profissional_section').hide();
+                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
+                    }
                 }
-            }
 
             // Chama a função ao carregar a página e ao mudar o cargo
             toggleConselhoFields();
