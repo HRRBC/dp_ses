@@ -67,6 +67,7 @@ class Colaborador(models.Model):
         ('demitido', 'Demitido'),
         ('exonerado', 'Exonerado'),
     ]
+    
     status = models.CharField(max_length=255, choices=STATUS_CHOICES, verbose_name="Status", default='ativo')
 
     data_admissao = models.DateField(verbose_name="Data de admissão")
