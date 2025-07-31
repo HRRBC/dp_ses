@@ -11,27 +11,27 @@
         /* Estilos personalizados para aprimorar o visual */
         h4 {
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid #dee2e6; /* Linha sutil para separar as seções */
-            margin-bottom: 1.5rem; /* Espaçamento maior após o título */
-            color: #343a40; /* Cor mais escura para os títulos */
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 1.5rem;
+            color: #343a40;
         }
         .form-label {
-            font-weight: 500; /* Deixa os labels um pouco mais destacados */
+            font-weight: 500;
             color: #495057;
         }
         .card {
-            border-radius: 0.75rem; /* Bordas mais arredondadas para o card */
+            border-radius: 0.75rem;
         }
         .btn-primary {
-            background-color: #007bff; /* Cor primária do Bootstrap */
+            background-color: #007bff;
             border-color: #007bff;
             transition: all 0.2s ease-in-out;
         }
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #0056b3;
-            transform: translateY(-1px); /* Pequeno efeito ao passar o mouse */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave */
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .btn-secondary {
             transition: all 0.2s ease-in-out;
@@ -45,12 +45,11 @@
 <body class="bg-light">
     <div class="container py-5">
         <div class="card shadow-lg">
-            <div class="card-body p-5"> {# Adicionei mais padding interno para o card #}
-                <h2 class="mb-5 text-center text-primary fw-bold">Cadastro de Colaborador</h2> {# Título mais destacado #}
+            <div class="card-body p-5">
+                <h2 class="mb-5 text-center text-primary fw-bold">Cadastro de Colaborador</h2>
                 <form method="post">
                     {% csrf_token %}
 
-                    {# Feedback de Sucesso/Erro (se houver, vindo do Django) #}
                     {% if messages %}
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -61,13 +60,13 @@
                     {% endif %}
 
                     <h4><span class="me-2">📌</span>1. Identificação</h4>
-                    <div class="row g-4 mb-4"> {# g-4 para mais espaçamento entre campos e mb-4 para espaçamento inferior #}
+                    <div class="row g-4 mb-4">
                         <div class="col-md-4">
                             <label for="id_matricula" class="form-label">Matrícula</label>
                             <input type="text" name="matricula" id="id_matricula" class="form-control" required aria-describedby="matriculaHelp"/>
                             <div id="matriculaHelp" class="form-text">Ex: 123456</div>
                         </div>
-                        <div class="col-md-8"> {# Ocupa mais espaço para o nome completo #}
+                        <div class="col-md-8">
                             <label for="id_nome_completo" class="form-label">Nome Completo</label>
                             <input type="text" name="nome_completo" id="id_nome_completo" class="form-control" required />
                         </div>
@@ -77,7 +76,7 @@
                     <div class="row g-4 mb-4">
                         <div class="col-md-4">
                             <label for="id_cargo" class="form-label">Cargo</label>
-                                <select name="cargo" id="id_cargo" class="form-select" required>
+                                <select name="cargo" id="id_cargo" class="form-select">
                                     <option value="">Selecione o Cargo</option>
                                     <option value="medico">Médico</option>
                                     <option value="analista">Analista em Saúde</option>
@@ -86,17 +85,17 @@
                                 </select>
                         </div>
                         <div class="col-md-4">
-                            <label for="id_funcao" class="form-label">Função Específica</label> {# Nome mais descritivo #}
-                            <input type="text" name="funcao" id="id_funcao" class="form-control" required aria-describedby="funcaoHelp"/>
+                            <label for="id_funcao" class="form-label">Função Específica</label>
+                            <input type="text" name="funcao" id="id_funcao" class="form-control" aria-describedby="funcaoHelp"/>
                             <div id="funcaoHelp" class="form-text">Ex: Médico Generalista, Enfermeiro Chefe</div>
                         </div>
                         <div class="col-md-4">
                             <label for="id_data_admissao" class="form-label">Data de Admissão</label>
-                            <input type="date" name="data_admissao" id="id_data_admissao" class="form-control" required />
+                            <input type="date" name="data_admissao" id="id_data_admissao" class="form-control" />
                         </div>
                         <div class="col-md-4">
                             <label for="id_setor_trabalho" class="form-label">Setor de Trabalho</label>
-                            <select name="setor_trabalho" id="id_setor_trabalho" class="form-select" required>
+                            <select name="setor_trabalho" id="id_setor_trabalho" class="form-select">
                                 <option value="">Selecione o Setor</option>
                                 <option value="almoxarifado">Almoxarifado</option>
                                 <option value="ambulatorio">Ambulatório</option>
@@ -115,7 +114,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="id_turno" class="form-label">Turno</label>
-                            <select name="turno" id="id_turno" class="form-select" required>
+                            <select name="turno" id="id_turno" class="form-select">
                                 <option value="">Selecione o Turno</option>
                                 <option value="manha">Manhã</option>
                                 <option value="tarde">Tarde</option>
@@ -126,22 +125,22 @@
                         </div>
                         <div class="col-md-4">
                             <label for="id_dias_trabalho" class="form-label">Dias de Trabalho</label>
-                            <input type="text" name="dias_trabalho" id="id_dias_trabalho" class="form-control" required aria-describedby="diasTrabalhoHelp"/>
+                            <input type="text" name="dias_trabalho" id="id_dias_trabalho" class="form-control" aria-describedby="diasTrabalhoHelp"/>
                             <div id="diasTrabalhoHelp" class="form-text">Ex: Seg-Sex, 12x36</div>
                         </div>
                         <div class="col-md-4">
                             <label for="id_jornada_trabalho" class="form-label">Jornada de Trabalho (Horas)</label>
-                            <input type="text" name="jornada_trabalho" id="id_jornada_trabalho" class="form-control" required aria-describedby="jornadaHelp"/>
+                            <input type="text" name="jornada_trabalho" id="id_jornada_trabalho" class="form-control" aria-describedby="jornadaHelp"/>
                             <div id="jornadaHelp" class="form-text">Ex: 8h/dia, 44h/semana</div>
                         </div>
                         <div class="col-md-4">
                             <label for="id_tipo_contrato" class="form-label">Tipo de Contrato</label>
-                            <input type="text" name="tipo_contrato" id="id_tipo_contrato" class="form-control" required aria-describedby="contratoHelp"/>
+                            <input type="text" name="tipo_contrato" id="id_tipo_contrato" class="form-control" aria-describedby="contratoHelp"/>
                             <div id="contratoHelp" class="form-text">Ex: CLT, PJ, Estágio</div>
                         </div>
                         <div class="col-md-4">
                             <label for="id_status" class="form-label">Status</label>
-                            <select name="status" id="id_status" class="form-select" required>
+                            <select name="status" id="id_status" class="form-select">
                                 <option value="">Selecione o Status</option>
                                 <option value="ativo">Ativo</option>
                                 <option value="inativo">Inativo</option>
@@ -176,12 +175,11 @@
                         </div>
                     </div>
 
-
                     <h4><span class="me-2">👪</span>3. Informações Familiares</h4>
                     <div class="row g-4 mb-4">
                         <div class="col-md-6">
                             <label for="id_nome_mae" class="form-label">Nome da Mãe</label>
-                            <input type="text" name="nome_mae" id="id_nome_mae" class="form-control" required />
+                            <input type="text" name="nome_mae" id="id_nome_mae" class="form-control" />
                         </div>
                         <div class="col-md-6">
                             <label for="id_nome_pai" class="form-label">Nome do Pai (Opcional)</label>
@@ -193,51 +191,42 @@
                     <div class="row g-4 mb-4">
                         <div class="col-md-4">
                             <label for="id_data_nascimento" class="form-label">Data de Nascimento</label>
-                            <input type="date" name="data_nascimento" id="id_data_nascimento" class="form-control" required />
+                            <input type="date" name="data_nascimento" id="id_data_nascimento" class="form-control" />
                         </div>
                         <div class="col-md-4">
                             <label for="id_naturalidade" class="form-label">Naturalidade (Cidade/UF)</label>
-                            <input type="text" name="naturalidade" id="id_naturalidade" class="form-control" required placeholder="Ex: Recife/PE"/>
+                            <input type="text" name="naturalidade" id="id_naturalidade" class="form-control" placeholder="Ex: Recife/PE"/>
                         </div>
-                            <div class="col-md-4">
-                                <label for="id_status" class="form-label">Status</label>
-                                <select name="status" id="id_status" class="form-select" required>
-                                    <option value="">Selecione o Status</option>
-                                    <option value="ativo" {% if colaborador.status == "ativo" %}selected{% endif %}>Ativo</option>
-                                    <option value="inativo" {% if colaborador.status == "inativo" %}selected{% endif %}>Inativo</option>
-                                    <option value="ferias" {% if colaborador.status == "ferias" %}selected{% endif %}>Férias</option>
-                                    <option value="afastado" {% if colaborador.status == "afastado" %}selected{% endif %}>Afastado</option>
-                                    <option value="licencan" {% if colaborador.status == "licencan" %}selected{% endif %}>Licença Nojo</option>
-                                    <option value="licencag" {% if colaborador.status == "licencag" %}selected{% endif %}>Licença Gala</option>
-                                    <option value="licencam" {% if colaborador.status == "licencam" %}selected{% endif %}>Licença Maternidade</option>
-                                    <option value="licencap" {% if colaborador.status == "licencap" %}selected{% endif %}>Licença Paternidade</option>
-                                    <option value="licencae" {% if colaborador.status == "licencae" %}selected{% endif %}>Licença Eleitoral</option>
-                                    <option value="licencat" {% if colaborador.status == "licencat" %}selected{% endif %}>Licença de Trato e Interesse Particular</option>
-                                    <option value="licencaedu" {% if colaborador.status == "licencaedu" %}selected{% endif %}>Licença Estudo</option>
-                                    <option value="licencapremio" {% if colaborador.status == "licencapremio" %}selected{% endif %}>Licença Prêmio</option>
-                                    <option value="demitido" {% if colaborador.status == "demitido" %}selected{% endif %}>Demitido</option>
-                                    <option value="exonerado" {% if colaborador.status == "exonerado" %}selected{% endif %}>Exonerado</option>
-                                </select>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="id_estado_civil" class="form-label">Estado Civil</label>
+                            <select name="estado_civil" id="id_estado_civil" class="form-select">
+                                <option value="">Selecione</option>
+                                <option value="solteiro">Solteiro(a)</option>
+                                <option value="casado">Casado(a)</option>
+                                <option value="divorciado">Divorciado(a)</option>
+                                <option value="viuvo">Viúvo(a)</option>
+                                <option value="uniao_estavel">União Estável</option>
+                            </select>
+                        </div>
                         <div class="col-md-4">
                             <label for="id_cpf" class="form-label">CPF</label>
                             <input type="text" name="cpf" id="id_cpf" class="form-control cpf-mask" required placeholder="000.000.000-00"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_rg_completo" class="form-label">RG (Número e Órgão Emissor)</label>
-                            <input type="text" name="rg_completo" id="id_rg_completo" class="form-control" required placeholder="Ex: 12345678 SSP/PE"/>
+                            <input type="text" name="rg_completo" id="id_rg_completo" class="form-control" placeholder="Ex: 12345678 SSP/PE"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_numero_ctps" class="form-label">Número da CTPS</label>
-                            <input type="text" name="numero_ctps" id="id_numero_ctps" class="form-control" required placeholder="0000000"/>
+                            <input type="text" name="numero_ctps" id="id_numero_ctps" class="form-control" placeholder="0000000"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_serie_ctps" class="form-label">Série da CTPS</label>
-                            <input type="text" name="serie_ctps" id="id_serie_ctps" class="form-control" required placeholder="00000"/>
+                            <input type="text" name="serie_ctps" id="id_serie_ctps" class="form-control" placeholder="00000"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_uf_ctps" class="form-label">UF da CTPS</label>
-                            <input type="text" name="uf_ctps" id="id_uf_ctps" class="form-control" required maxlength="2" placeholder="Ex: PE"/>
+                            <input type="text" name="uf_ctps" id="id_uf_ctps" class="form-control" maxlength="2" placeholder="Ex: PE"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_titulo_eleitor" class="form-label">Título de Eleitor</label>
@@ -245,15 +234,15 @@
                         </div>
                         <div class="col-md-4">
                             <label for="id_zona_eleitoral" class="form-label">Zona Eleitoral</label>
-                            <input type="text" name="zona_eleitoral" id="id_zona_eleitoral" class="form-control" required placeholder="000"/>
+                            <input type="text" name="zona_eleitoral" id="id_zona_eleitoral" class="form-control" placeholder="000"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_secao_eleitoral" class="form-label">Seção Eleitoral</label>
-                            <input type="text" name="secao_eleitoral" id="id_secao_eleitoral" class="form-control" required placeholder="000"/>
+                            <input type="text" name="secao_eleitoral" id="id_secao_eleitoral" class="form-control" placeholder="000"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_estado_vota" class="form-label">Estado onde Vota</label>
-                            <input type="text" name="estado_vota" id="id_estado_vota" class="form-control" required maxlength="2" placeholder="Ex: PE"/>
+                            <input type="text" name="estado_vota" id="id_estado_vota" class="form-control" maxlength="2" placeholder="Ex: PE"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_documento_militar" class="form-label">Documento Militar (Opcional)</label>
@@ -261,7 +250,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="id_grau_instrucao" class="form-label">Grau de Instrução</label>
-                            <input type="text" name="grau_instrucao" id="id_grau_instrucao" class="form-control" required placeholder="Ex: Ensino Superior Completo"/>
+                            <input type="text" name="grau_instrucao" id="id_grau_instrucao" class="form-control" placeholder="Ex: Ensino Superior Completo"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_numero_pasep" class="form-label">Número do PASEP (Opcional)</label>
@@ -273,7 +262,7 @@
                     <div class="row g-4 mb-4">
                         <div class="col-md-4">
                             <label for="id_celular" class="form-label">Celular</label>
-                            <input type="tel" name="celular" id="id_celular" class="form-control sp-celphones" required placeholder="(00) 00000-0000"/>
+                            <input type="tel" name="celular" id="id_celular" class="form-control sp-celphones" placeholder="(00) 00000-0000"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_telefone_fixo" class="form-label">Telefone Fixo (Opcional)</label>
@@ -281,7 +270,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="id_email" class="form-label">E-mail</label>
-                            <input type="email" name="email" id="id_email" class="form-control" required placeholder="email@exemplo.com"/>
+                            <input type="email" name="email" id="id_email" class="form-control" placeholder="email@exemplo.com"/>
                         </div>
                     </div>
 
@@ -289,81 +278,75 @@
                     <div class="row g-4 mb-4">
                         <div class="col-md-3">
                             <label for="id_cep" class="form-label">CEP</label>
-                            <input type="text" name="cep" id="id_cep" class="form-control cep-mask" required placeholder="00000-000"/>
+                            <input type="text" name="cep" id="id_cep" class="form-control cep-mask" placeholder="00000-000"/>
                         </div>
                         <div class="col-md-7">
-                            <label for="id_endereco" class="form-label">Logradouro</label> {# Nome mais comum #}
-                            <input type="text" name="endereco" id="id_endereco" class="form-control" required placeholder="Rua, Avenida, etc."/>
+                            <label for="id_endereco" class="form-label">Logradouro</label>
+                            <input type="text" name="endereco" id="id_endereco" class="form-control" placeholder="Rua, Avenida, etc."/>
                         </div>
                         <div class="col-md-2">
                             <label for="id_numero" class="form-label">Número</label>
-                            <input type="text" name="numero" id="id_numero" class="form-control" required placeholder="Ex: 123"/>
+                            <input type="text" name="numero" id="id_numero" class="form-control" placeholder="Ex: 123"/>
                         </div>
                         <div class="col-md-4">
-                            <label for="id_complemento" class="form-label">Complemento (Opcional)</label> {# Adicionado #}
+                            <label for="id_complemento" class="form-label">Complemento (Opcional)</label>
                             <input type="text" name="complemento" id="id_complemento" class="form-control" placeholder="Apto, Bloco, Casa"/>
                         </div>
                         <div class="col-md-4">
                             <label for="id_bairro" class="form-label">Bairro</label>
-                            <input type="text" name="bairro" id="id_bairro" class="form-control" required />
+                            <input type="text" name="bairro" id="id_bairro" class="form-control" />
                         </div>
                         <div class="col-md-4">
                             <label for="id_cidade" class="form-label">Cidade</label>
-                            <input type="text" name="cidade" id="id_cidade" class="form-control" required />
+                            <input type="text" name="cidade" id="id_cidade" class="form-control" />
                         </div>
                         <div class="col-md-4">
                             <label for="id_uf" class="form-label">UF</label>
-                            <input type="text" name="uf" id="id_uf" class="form-control" required maxlength="2" placeholder="Ex: PE"/>
+                            <input type="text" name="uf" id="id_uf" class="form-control" maxlength="2" placeholder="Ex: PE"/>
                         </div>
                     </div>
 
-                    {# NOVO CAMPO: Observações #}
                     <h4 class="mt-5"><span class="me-2">📝</span>7. Observações</h4>
                     <div class="row g-4 mb-4">
-                        <div class="col-12"> {# col-12 para ocupar a largura total #}
+                        <div class="col-12">
                             <label for="id_observacoes" class="form-label">Informações Adicionais</label>
                             <textarea name="observacoes" id="id_observacoes" class="form-control" rows="4" maxlength="1000" placeholder="Insira quaisquer observações importantes sobre o colaborador..."></textarea>
                             <div id="observacoesHelp" class="form-text">Máximo de 1000 caracteres.</div>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end mt-5 pt-3 border-top"> {# Adicionei mais espaçamento e uma linha superior #}
+                    <div class="d-flex justify-content-end mt-5 pt-3 border-top">
                         <a href="{% url 'tarefas:home' %}" class="btn btn-secondary me-3 px-4 py-2">Cancelar</a>
                         <button type="submit" class="btn btn-primary px-4 py-2">Salvar Colaborador</button>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> {# Exemplo de inclusão do jQuery #}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script> {# Exemplo de inclusão do jQuery Mask Plugin #}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
         $(document).ready(function(){
             // Máscaras
             $('.cpf-mask').mask('000.000.000-00');
             $('.cep-mask').mask('00000-000');
-            $('.sp-celphones').mask('(00) 00000-0000'); // Celulares brasileiros (incluindo 9º dígito)
-            $('.sp-phones').mask('(00) 0000-0000'); // Telefones fixos brasileiros
+            $('.sp-celphones').mask('(00) 00000-0000');
+            $('.sp-phones').mask('(00) 0000-0000');
 
             // Lógica para mostrar/esconder a seção de Conselho Profissional
-                function toggleConselhoFields() {
-                    var cargo = $('#id_cargo').val();
+            function toggleConselhoFields() {
+                var cargo = $('#id_cargo').val();
 
-                    if (cargo === 'medico' || cargo === 'analista') {
-                        $('#conselho_profissional_section').show();
-                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').attr('required', true);
-                    } else if (cargo === 'assistente') {
-                        $('#conselho_profissional_section').show();
-                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
-                    } else {
-                        $('#conselho_profissional_section').hide();
-                        $('#id_numero_conselho, #id_uf_conselho, #id_nome_conselho').removeAttr('required');
-                    }
+                if (cargo === 'medico' || cargo === 'analista') {
+                    $('#conselho_profissional_section').show();
+                } else if (cargo === 'assistente') {
+                    $('#conselho_profissional_section').show();
+                } else {
+                    $('#conselho_profissional_section').hide();
                 }
-
+            }
 
             // Chama a função ao carregar a página e ao mudar o cargo
             toggleConselhoFields();
