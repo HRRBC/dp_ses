@@ -14,4 +14,6 @@ urlpatterns = [
     path('colaboradores/editar/<int:id>/', views.editar_colaborador, name='editar_colaborador'),
     path('colaboradores/folha-de-ponto-selecao/<int:id>/', views.folha_de_ponto_selecao, name='folha_de_ponto_selecao'),
     path('gerar-folha-ponto-pdf/', views.gerar_folha_ponto_pdf, name='gerar_folha_ponto_pdf'),
+    path('aniversariantes/', views.listar_aniversariantes, name='listar_aniversariantes'),
+    path('aniversariantes/pdf/<str:mes>/', views.gerar_aniversariantes_pdf, name='gerar_aniversariantes_pdf'),
 ]
