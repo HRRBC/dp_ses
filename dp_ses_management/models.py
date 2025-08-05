@@ -126,3 +126,23 @@ class Colaborador(models.Model):
 
     def __str__(self):
         return self.nome_completo if self.nome_completo else f"Colaborador {self.registro}"
+
+
+# Esta classe deve ser um modelo separado, não aninhado
+class Ferias(models.Model):
+    STATUS_CHOICES = [
+        ('pendente', 'Pendente'),
+        ('aprovada', 'Aprovada'),
+        ('rejeitada', 'Rejeitada'),
+        ('cancelada', 'Cancelada'),
+    ]
+
+    colaborador = models.ForeignKey(Colaborador, on_delete=models.CASCADE, related_name='ferias')
+    data_inicio = models.DateField(verbose_name="Data de Início")
+    data_fim = models.DateField(verbose_name="Data de Fim")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+    data_solicitacao = models.DateField(auto_now_add=True)
+    observacoes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Férias de {self.colaborador.nome_completo} ({self.data_inicio} a {self.data_fim})"

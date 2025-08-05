@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
-from .models import Colaborador
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import logging
+from .models import Colaborador, Ferias  # IMPORTANTE: Adicione o novo modelo Ferias
 from datetime import datetime
 import os
 from django.conf import settings
@@ -369,7 +369,7 @@ def gerar_aniversariantes_pdf(request, mes):
     
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='TitleStyle', fontSize=18, leading=22, alignment=1, spaceAfter=12, fontName='Helvetica-Bold'))
-    styles.add(ParagraphStyle(name='HeadingStyle', fontSize=14, leading=18, alignment=0, spaceAfter=6, fontName='Helvetica-Bold'))
+    styles.add(ParagraphStyle(name='HeadingStyle', fontSize=16, leading=22, alignment=1, spaceAfter=6, fontName='Helvetica-Bold'))
 
     elements.append(Paragraph("Lista de Aniversariantes", styles['TitleStyle']))
     elements.append(Paragraph(f"Mês de {mes_nome}", styles['HeadingStyle']))
@@ -403,3 +403,76 @@ def gerar_aniversariantes_pdf(request, mes):
     buffer.close()
     response.write(pdf)
     return response
+
+
+@login_required(login_url='/auth/login/')
+def listar_ferias(request):
+    ferias_list = Ferias.objects.all().order_by('-data_solicitacao')
+    context = {
+        'ferias_list': ferias_list,
+    }
+    return render(request, 'tarefas/listar_ferias.html', context)
+
+
+# View para a página de solicitação de férias
+@login_required(login_url='/auth/login/')
+def solicitar_ferias(request):
+    if request.method == 'POST':
+        try:
+            colaborador_id = request.POST.get('colaborador_id')
+            data_inicio = request.POST.get('data_inicio')
+            data_fim = request.POST.get('data_fim')
+            observacoes = request.POST.get('observacoes').strip() or None
+
+            colaborador_obj = get_object_or_404(Colaborador, registro=colaborador_id)
+
+            ferias = Ferias(
+                colaborador=colaborador_obj,
+                data_inicio=data_inicio,
+                data_fim=data_fim,
+                observacoes=observacoes
+            )
+            ferias.full_clean()
+            ferias.save()
+            messages.success(request, f"Solicitação de férias para {colaborador_obj.nome_completo} enviada com sucesso!")
+            return redirect('tarefas:listar_ferias')
+        except Exception as e:
+            messages.error(request, f"Erro ao solicitar férias: {e}")
+            return render(request, 'tarefas/solicitar_ferias.html', {'colaboradores': Colaborador.objects.all()})
+
+    colaboradores = Colaborador.objects.all().order_by('nome_completo')
+    context = {
+        'colaboradores': colaboradores,
+    }
+    return render(request, 'tarefas/solicitar_ferias.html', context)
+
+
+# NOVO: View para aprovar uma solicitação de férias
+@login_required(login_url='/auth/login/')
+def aprovar_ferias(request, ferias_id):
+    # Pega a solicitação de férias ou retorna 404 se não existir
+    ferias = get_object_or_404(Ferias, id=ferias_id)
+
+    # Verifica se a solicitação já não está aprovada para evitar mudanças desnecessárias
+    if ferias.status != 'aprovada':
+        ferias.status = 'aprovada'
+        ferias.save()
+        messages.success(request, f"A solicitação de férias de {ferias.colaborador.nome_completo} foi aprovada com sucesso.")
+    else:
+        messages.info(request, "A solicitação de férias já estava aprovada.")
+
+    return redirect('tarefas:listar_ferias')
+
+
+@login_required(login_url='/auth/login/')
+def excluir_ferias(request, ferias_id):
+    # Pega a solicitação de férias ou retorna 404 se não existir
+    ferias = get_object_or_404(Ferias, id=ferias_id)
+    colaborador_nome = ferias.colaborador.nome_completo
+    
+    # Exclui o registro do banco de dados
+    ferias.delete()
+    
+    messages.success(request, f"A solicitação de férias de {colaborador_nome} foi excluída com sucesso.")
+    
+    return redirect('tarefas:listar_ferias')
