@@ -12,118 +12,119 @@
         th.sticky {
             position: sticky;
             top: 0;
-            background-color: #1f2937; /* bg-gray-800 */
+            background-color: #1f2937;
             color: white;
             z-index: 10;
         }
 
         /* Estilos personalizados para os botões */
         .btn-primary {
-            background-color: #3b82f6; /* Tailwind blue-600 */
+            background-color: #3b82f6;
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 0.25rem;
             transition: background-color 0.2s ease-in-out;
+            white-space: nowrap;
         }
         .btn-primary:hover {
-            background-color: #2563eb; /* Tailwind blue-700 */
+            background-color: #2563eb;
         }
         
         .btn-secondary {
-            background-color: #4b5563; /* Tailwind gray-700 */
+            background-color: #4b5563;
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 0.25rem;
             transition: background-color 0.2s ease-in-out;
+            white-space: nowrap;
         }
         .btn-secondary:hover {
-            background-color: #1f2937; /* Tailwind gray-800 */
+            background-color: #1f2937;
         }
 
         .btn-success {
-            background-color: #10b981; /* Tailwind green-600 */
+            background-color: #10b981;
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 0.25rem;
             transition: background-color 0.2s ease-in-out;
         }
         .btn-success:hover {
-            background-color: #059669; /* Tailwind green-700 */
+            background-color: #059669;
         }
 
         .btn-light {
-            background-color: #d1d5db; /* Tailwind gray-300 */
-            color: #1f2937; /* Tailwind gray-800 */
+            background-color: #d1d5db;
+            color: #1f2937;
             padding: 0.5rem 1rem;
             border-radius: 0.25rem;
             transition: background-color 0.2s ease-in-out;
         }
         .btn-light:hover {
-            background-color: #9ca3af; /* Tailwind gray-400 */
+            background-color: #9ca3af;
         }
 
         /* Estilos para os botões de ação na tabela */
         .btn-action-edit {
-            background-color: #fcd34d; /* Tailwind yellow-400 */
-            color: #1f2937; /* Tailwind gray-800 */
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem; /* rounded-md */
+            background-color: #fcd34d;
+            color: #1f2937;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
             transition: background-color 0.15s ease-in-out;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            white-space: nowrap; /* Evita que o texto quebre */
+            white-space: nowrap;
+            font-size: 0.875rem;
         }
         .btn-action-edit:hover {
-            background-color: #fbbf24; /* Tailwind yellow-500 */
+            background-color: #fbbf24;
         }
 
         .btn-action-pontos {
-            background-color: #3b82f6; /* Tailwind blue-500 */
+            background-color: #3b82f6;
             color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
             transition: background-color 0.15s ease-in-out;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            white-space: nowrap; /* Evita que o texto quebre */
+            white-space: nowrap;
+            font-size: 0.875rem;
         }
         .btn-action-pontos:hover {
-            background-color: #2563eb; /* Tailwind blue-600 */
+            background-color: #2563eb;
         }
 
         /* Estilos para o Modal */
         .modal {
-            /* CORRIGIDO AQUI: display: none; */
-            display: none; /* Hidden by default */ 
-            position: fixed; /* Stay in place */
-            z-index: 100; /* Sit on top */
+            display: none;
+            position: fixed;
+            z-index: 100;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-            /* display: flex; REMOVIDO DAQUI, AGORA SERÁ APLICADO POR JS */
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal.is-active {
+            display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Adicione esta regra CSS para quando o modal estiver aberto */
-        .modal.is-active {
-            display: flex; 
-        }
-
         .modal-content {
             background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
+            margin: 1rem;
+            padding: 1.25rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 90%;
+            width: 100%;
             max-width: 500px;
             position: relative;
         }
@@ -131,11 +132,11 @@
         .close-button {
             color: #aaa;
             float: right;
-            font-size: 28px;
+            font-size: 1.75rem;
             font-weight: bold;
             position: absolute;
-            top: 10px;
-            right: 20px;
+            top: 0.5rem;
+            right: 1rem;
         }
 
         .close-button:hover,
@@ -144,20 +145,88 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* Estilos para tabela responsiva */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Ajustes para telas menores */
+        @media (max-width: 1024px) {
+            .main-container {
+                width: 100%;
+                padding: 0.5rem;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding-bottom: 1rem;
+            }
+            
+            .filter-form {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+            
+            .table-responsive th,
+            .table-responsive td {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .status-badge {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .btn-primary, .btn-secondary, .btn-success, .btn-light {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+            
+            .modal-content {
+                margin: 0.5rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .btn-action-edit, .btn-action-pontos {
+                padding: 0.2rem 0.4rem;
+                font-size: 0.75rem;
+            }
+            
+            .table-responsive th,
+            .table-responsive td {
+                padding: 0.3rem 0.1rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen px-2 pt-4">
 
-    <div class="w-[95vw] mx-auto flex flex-col min-h-[90vh] px-8"> 
+    <div class="main-container w-full mx-auto flex flex-col min-h-[90vh] px-2 sm:px-4 md:px-6 lg:px-8"> 
 
-        <div class="flex items-center justify-between border-b pb-4 mb-6">
-            <h1 class="text-3xl font-extrabold text-gray-900">📋 Lista de Colaboradores</h1>
-            <div class="flex gap-3">
-                <a href="{% url 'tarefas:cadastrar_colaborador' %}" class="btn-primary">
+        <div class="header-container flex flex-col sm:flex-row items-start sm:items-center justify-between border-b pb-4 mb-4 sm:mb-6 gap-4">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900">📋 Lista de Colaboradores</h1>
+            <div class="flex gap-2 sm:gap-3 w-full sm:w-auto">
+                <a href="{% url 'tarefas:cadastrar_colaborador' %}" class="btn-primary flex-1 sm:flex-none text-center">
                     ➕ Novo Colaborador
                 </a>
-                <a href="{% url 'tarefas:home' %}" class="btn-secondary">
-                    🏠 Voltar à Home
+                <a href="{% url 'tarefas:home' %}" class="btn-secondary flex-1 sm:flex-none text-center">
+                    🏠 Voltar
                 </a>
             </div>
         </div>
@@ -172,17 +241,17 @@
             </div>
         {% endif %}
 
-        <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 bg-white p-6 rounded-lg shadow-md w-full text-base"> 
+        <form method="get" class="filter-form grid grid-cols-1 md:grid-cols-4 gap-3 mb-4 sm:mb-6 bg-white p-4 sm:p-6 rounded-lg shadow-md w-full text-sm sm:text-base">
             <div class="col-span-full md:col-span-2">
                 <label for="id_busca_nome" class="block font-semibold mb-1 text-gray-700">Buscar por Nome</label>
                 <input type="text" id="id_busca_nome" name="busca_nome" 
                        value="{{ filtro_busca_nome }}" 
                        placeholder="Digite o nome completo ou parte dele..."
-                       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500">
+                       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500 text-sm sm:text-base">
             </div>
             <div>
-                <label for="id_setor" class="block font-semibold mb-1 text-gray-700">Setor de Trabalho</label>
-                <select id="id_setor" name="setor" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500">
+                <label for="id_setor" class="block font-semibold mb-1 text-gray-700">Setor</label>
+                <select id="id_setor" name="setor" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500 text-sm sm:text-base">
                     <option value="">Todos os setores</option>
                     <option value="almoxarifado" {% if filtro_setor == "almoxarifado" %}selected{% endif %}>Almoxarifado</option>
                     <option value="ambulatorio" {% if filtro_setor == "ambulatorio" %}selected{% endif %}>Ambulatório</option>
@@ -199,11 +268,10 @@
                     <option value="uti" {% if filtro_setor == "uti" %}selected{% endif %}>UTI</option>
                     <option value="dp" {% if filtro_setor == "dp" %}selected{% endif %}>Departamento Pessoal</option>
                 </select>
-
             </div>
             <div>
-                <label for="id_status" class="block font-semibold mb-1 text-gray-700">Status do Colaborador</label>
-                <select id="id_status" name="status" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500">
+                <label for="id_status" class="block font-semibold mb-1 text-gray-700">Status</label>
+                <select id="id_status" name="status" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500 text-sm sm:text-base">
                     <option value="">Todos os status</option>
                     <option value="ativo" {% if filtro_status == "ativo" %}selected{% endif %}>Ativo</option>
                     <option value="inativo" {% if filtro_status == "inativo" %}selected{% endif %}>Inativo</option>
@@ -221,41 +289,41 @@
                     <option value="exonerado" {% if filtro_status == "exonerado" %}selected{% endif %}>Exonerado</option>
                 </select>
             </div>
-            <div class="flex items-end gap-3 mt-auto col-span-full">
-                <button type="submit" class="btn-success w-full text-base">
-                    🔍 Filtrar / Buscar
+            <div class="flex items-end gap-2 sm:gap-3 mt-auto col-span-full action-buttons">
+                <button type="submit" class="btn-success w-full text-sm sm:text-base">
+                    🔍 Filtrar
                 </button>
-                <a href="{% url 'tarefas:listar_colaboradores' %}" class="btn-light w-full text-center text-base">
-                    ❌ Limpar Filtros
+                <a href="{% url 'tarefas:listar_colaboradores' %}" class="btn-light w-full text-center text-sm sm:text-base">
+                    ❌ Limpar
                 </a>
             </div>
         </form>
 
-        <div class="flex-grow overflow-y-auto bg-white rounded-lg shadow-lg max-h-[65vh] text-base">
-            <table class="min-w-full table-auto text-left">
+        <div class="table-container flex-grow overflow-x-auto bg-white rounded-lg shadow-lg max-h-[65vh] text-sm sm:text-base">
+            <table class="table-responsive min-w-full table-auto text-left">
                 <thead>
                     <tr class="bg-gray-800 text-white sticky top-0 z-10">
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider">ID</th>
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider">Matrícula</th>
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider">Nome Completo</th>
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider">Função</th>
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider">Setor</th>
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider">Celular</th>
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider text-center">Status</th>
-                        <th class="px-4 py-3 font-semibold text-sm uppercase tracking-wider text-center w-48">Ações</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider">ID</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider">Matrícula</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider">Nome Completo</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider">Função</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider">Setor</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider">Celular</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider text-center">Status</th>
+                        <th class="px-2 sm:px-4 py-2 font-semibold text-xs sm:text-sm uppercase tracking-wider text-center min-w-[8rem] sm:min-w-[12rem]">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     {% for colaborador in colaboradores %}
                     <tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
-                        <td class="px-4 py-3">{{ colaborador.registro }}</td>
-                        <td class="px-4 py-3">{{ colaborador.matricula }}</td>
-                        <td class="px-4 py-3">{{ colaborador.nome_completo }}</td>
-                        <td class="px-4 py-3">{{ colaborador.funcao }}</td>
-                        <td class="px-4 py-3">{{ colaborador.get_setor_trabalho_display }}</td>
-                        <td class="px-4 py-3">{{ colaborador.celular }}</td>
-                        <td class="px-4 py-3 text-center">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                        <td class="px-2 sm:px-4 py-2">{{ colaborador.registro }}</td>
+                        <td class="px-2 sm:px-4 py-2">{{ colaborador.matricula }}</td>
+                        <td class="px-2 sm:px-4 py-2">{{ colaborador.nome_completo }}</td>
+                        <td class="px-2 sm:px-4 py-2">{{ colaborador.funcao }}</td>
+                        <td class="px-2 sm:px-4 py-2">{{ colaborador.get_setor_trabalho_display }}</td>
+                        <td class="px-2 sm:px-4 py-2">{{ colaborador.celular }}</td>
+                        <td class="px-2 sm:px-4 py-2 text-center">
+                            <span class="status-badge inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
                                 {% if colaborador.status == 'ativo' %}
                                     bg-green-100 text-green-800
                                 {% elif colaborador.status == 'ferias' %}
@@ -288,36 +356,36 @@
                                 {% if colaborador.status == 'ativo' %}✔ Ativo
                                 {% elif colaborador.status == 'ferias' %}☀️ Férias
                                 {% elif colaborador.status == 'afastado' %}⚠️ Afastado
-                                {% elif colaborador.status == 'licencan' %}💐 Licença Nojo
-                                {% elif colaborador.status == 'licencag' %}💍 Licença Gala
-                                {% elif colaborador.status == 'licencam' %}🤰 Licença Maternidade
-                                {% elif colaborador.status == 'licencap' %}👶 Licença Paternidade
-                                {% elif colaborador.status == 'licencae' %}🗳️ Licença Eleitoral
-                                {% elif colaborador.status == 'licencat' %}📄 Licença Trato Pessoal
-                                {% elif colaborador.status == 'licencaedu' %}📚 Licença Estudo
-                                {% elif colaborador.status == 'licencapremio' %}💎 Licença Prêmio
+                                {% elif colaborador.status == 'licencan' %}💐 Nojo
+                                {% elif colaborador.status == 'licencag' %}💍 Gala
+                                {% elif colaborador.status == 'licencam' %}🤰 Maternidade
+                                {% elif colaborador.status == 'licencap' %}👶 Paternidade
+                                {% elif colaborador.status == 'licencae' %}🗳️ Eleitoral
+                                {% elif colaborador.status == 'licencat' %}📄 Trato
+                                {% elif colaborador.status == 'licencaedu' %}📚 Estudo
+                                {% elif colaborador.status == 'licencapremio' %}💎 Prêmio
                                 {% elif colaborador.status == 'demitido' %}🛑 Demitido
                                 {% elif colaborador.status == 'exonerado' %}🚪 Exonerado
                                 {% else %}❌ Inativo
                                 {% endif %}
                             </span>
                         </td>
-                        <td class="px-4 py-3 flex space-x-2 justify-center items-center min-w-[12rem]">
+                        <td class="px-2 sm:px-4 py-2 flex flex-wrap sm:flex-nowrap gap-1 sm:gap-2 justify-center items-center min-w-[8rem] sm:min-w-[12rem]">
                             {% if colaborador.registro %}
                                 <a href="{% url 'tarefas:editar_colaborador' colaborador.registro %}" class="btn-action-edit">
                                     ✏️ Editar
                                 </a>
                                 <button type="button" class="btn-action-pontos" onclick="openFolhaPontoModal('{{ colaborador.registro }}')">
-                                     📋 Folha de Ponto
-                                 </button>
+                                    📋 Ponto
+                                </button>
                             {% else %}
-                                <span class="text-gray-500 text-sm">Registro inválido</span>
+                                <span class="text-gray-500 text-xs">Registro inválido</span>
                             {% endif %}
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="8" class="text-center py-6 text-gray-500 text-lg">Nenhum colaborador encontrado.</td>
+                        <td colspan="8" class="text-center py-4 sm:py-6 text-gray-500 text-sm sm:text-lg">Nenhum colaborador encontrado.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -328,14 +396,14 @@
     <div id="folhaPontoModal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeFolhaPontoModal()">&times;</span>
-            <h2 class="text-2xl font-bold mb-4 text-gray-900">Gerar Folha de Ponto</h2>
-            <p class="mb-4 text-gray-700">Selecione o mês e o ano de referência para a folha de ponto.</p>
+            <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">Gerar Folha de Ponto</h2>
+            <p class="mb-3 sm:mb-4 text-gray-700 text-sm sm:text-base">Selecione o mês e o ano de referência para a folha de ponto.</p>
 
             <form id="formGerarFolhaPonto" method="POST" action="{% url 'tarefas:gerar_folha_ponto_pdf' %}">
                 {% csrf_token %}
                 <input type="hidden" name="colaborador_id" id="modalColaboradorId">
 
-                <div class="mb-4">
+                <div class="mb-3 sm:mb-4">
                     <label for="modalMes" class="block text-sm font-medium text-gray-700 mb-1">Mês:</label>
                     <select id="modalMes" name="mes" required
                             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
@@ -354,7 +422,7 @@
                     </select>
                 </div>
 
-                <div class="mb-6">
+                <div class="mb-4 sm:mb-6">
                     <label for="modalAno" class="block text-sm font-medium text-gray-700 mb-1">Ano:</label>
                     <select id="modalAno" name="ano" required
                             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
@@ -362,11 +430,11 @@
                     </select>
                 </div>
 
-                <div class="flex justify-end gap-3">
-                    <button type="button" onclick="closeFolhaPontoModal()" class="btn-secondary">
+                <div class="flex justify-end gap-2 sm:gap-3">
+                    <button type="button" onclick="closeFolhaPontoModal()" class="btn-secondary text-sm sm:text-base">
                         Cancelar
                     </button>
-                    <button type="submit" class="btn-primary">
+                    <button type="submit" class="btn-primary text-sm sm:text-base">
                         Gerar PDF
                     </button>
                 </div>
@@ -399,19 +467,19 @@
         // Função para abrir o modal
         function openFolhaPontoModal(colaboradorId) {
             document.getElementById('modalColaboradorId').value = colaboradorId;
-            document.getElementById('folhaPontoModal').classList.add('is-active'); // Adiciona a classe para mostrar o modal
+            document.getElementById('folhaPontoModal').classList.add('is-active');
         }
 
         // Função para fechar o modal
         function closeFolhaPontoModal() {
-            document.getElementById('folhaPontoModal').classList.remove('is-active'); // Remove a classe para esconder o modal
+            document.getElementById('folhaPontoModal').classList.remove('is-active');
         }
 
         // Fecha o modal se o usuário clicar fora do conteúdo do modal
         window.onclick = function(event) {
             const modal = document.getElementById('folhaPontoModal');
             if (event.target == modal) {
-                closeFolhaPontoModal(); // Usa a função existente para fechar
+                closeFolhaPontoModal();
             }
         }
     </script>
