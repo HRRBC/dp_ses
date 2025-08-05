@@ -4,8 +4,5 @@
 
 # --- Ambientes Virtuais ---
 # Impede o envio da pasta do ambiente virtual (venv).
-/venv/
-/.venv/
-/env/
-/.env/
 
+\dp_ses\venv
