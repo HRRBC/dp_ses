@@ -6,27 +6,48 @@ services:
     container_name: pg-django-dev
     environment:
       POSTGRES_DB: dp_ses
-      POSTGRES_USER: joaob
-      POSTGRES_PASSWORD: 36457454
+      POSTGRES_USER: hrrbc
+      POSTGRES_PASSWORD: hrrbcdba
     volumes:
       - pg_data_dev:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hrrbc -d dp_ses"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin-dev
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
+  web:
+    build: .
+    container_name: django-app
+    command: gunicorn --bind 0.0.0.0:8000 dp_ses.wsgi:application
     volumes:
-      - pgadmin_data:/var/lib/pgadmin
+      - .:/app
+      - static_volume:/app/static
+    expose:
+      - "8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgres://hrrbc:hrrbcdba@db:5432/dp_ses
+      - PYTHONUNBUFFERED=1
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+      - static_volume:/static
+    depends_on:
+      - web
+    restart: unless-stopped
 
 volumes:
   pg_data_dev:
-  pgadmin_data:
-
+  static_volume:

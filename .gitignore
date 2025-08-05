@@ -1,8 +1,70 @@
-# ##################################################
-# ##      .GITIGNORE SIMPLES PARA PYTHON      ##
-# ##################################################
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+*.pyo
+*.pyd
+*.pyd
+*.env
+.env/
+.venv/
+venv/
+ENV/
+env.bak/
+*.sqlite3
 
-# --- Ambientes Virtuais ---
-# Impede o envio da pasta do ambiente virtual (venv).
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
 
-\dp_ses\venv
+# Django
+*.log
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# Migrations (opcional, só ignore se você recriar com frequência)
+**/migrations/*.py
+**/migrations/*.pyc
+# mas mantenha __init__.py
+!**/migrations/__init__.py
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Testes
+htmlcov/
+.coverage
+.tox/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.bak
+*.orig
+*~
+
+# Arquivos de produção (opcional)
+*.pem
+*.key
+*.crt
+
+# VS Code settings (opcional)
+.vscode/
+
+# Backup do banco de dados (caso use)
+*.backup
+*.dump
+
+# Arquivos gerados por coletstatic
+/static/

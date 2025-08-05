@@ -1,7 +1,7 @@
 
 Subir Conteiner PostgreeSQL
 
-docker run --name pg-django-dev \
+docker run --name pg-django \
   -e POSTGRES_DB=* \
   -e POSTGRES_USER=* \
   -e POSTGRES_PASSWORD=* \
