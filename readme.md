@@ -1,195 +1,156 @@
 # 📋 Sistema de Gestão de Funcionários do Estado - SES
 
-Este sistema tem como objetivo auxiliar os colaboradores na **gestão de funcionários contratados pelo estado em um hospital público**, oferecendo funcionalidades como cadastro, acompanhamento e geração de folha de ponto dos colaboradores.
+Este sistema tem como objetivo auxiliar na **gestão de funcionários contratados pelo estado em um hospital público**, oferecendo funcionalidades como cadastro, acompanhamento e geração de folha de ponto.
 
 ---
 
 ## 💡 Objetivo
 
-Desenvolvido para otimizar a rotina administrativa do hospital, este projeto visa:
+O sistema foi desenvolvido para otimizar a rotina administrativa do hospital, com foco em:
 
-- Centralizar os dados dos colaboradores do estado;
-- Permitir cadastro, edição e inativação de colaboradores;
-- Gerar folhas de ponto mensais em PDF;
-- Registrar batidas de ponto manuais;
-- Oferecer uma interface simples e funcional para os responsáveis administrativos.
+- Centralização de dados dos colaboradores do estado;
+- Cadastro, edição e inativação de colaboradores;
+- Geração de folhas de ponto mensais em PDF;
+- Registro de batidas de ponto manuais;
+- Interface simples e funcional para uso administrativo.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Linguagem principal**: Python
-- **Framework**: Django
-- **Banco de Dados**: SQLite (modo local) e suporte a PostgreSQL
-- **Front-end**: HTML + CSS + Bootstrap
-- **Servidor**: Debian
-- **WSGI Server**: Gunicorn
-- **Servidor Web**: Nginx
+- **Backend**: Python + Django
+- **Banco de Dados**: PostgreSQL (via Docker)
+- **Frontend**: HTML + CSS + Bootstrap
+- **Containerização**: Docker + Docker Compose
+- **Servidor Web**: Nginx (via Docker)
+- **Sistema Operacional**: Debian
 - **Hospedagem de código**: GitHub
 - **Controle de versão**: Git
 
 ---
 
-## 🧱 Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 ```bash
 dp_ses/
 ├── manage.py
-├── requirements.txt
 ├── docker-compose.yml
-├── db.sqlite3
+├── Dockerfile
+├── requirements.txt
+├── nginx/
+│   └── default.conf           # Configuração do Nginx
+├── dp_ses/
+│   └── ...                    # Projeto Django principal
+├── dp_ses_management/
+│   └── ...                    # App com funcionalidades de gestão
+├── static/
+│   └── ...                    # Arquivos estáticos (CSS, JS, imagens)
+├── templates/
+│   └── ...                    # Templates HTML
 ├── readme.md
-├── manual_instalacao_django_postgresql.md
-├── app/                  # Aplicações Django (ex: colaboradores, folha de ponto)
-├── templates/            # Templates HTML
-├── static/               # Arquivos estáticos (CSS, JS, imagens)
 └── ...
 ```
 
-> A pasta `app/` contém os modelos (models), views e urls específicas para o domínio hospitalar.
-
 ---
 
-## 🔧 Instalação e Configuração (Ambiente de Desenvolvimento)
+## 🚀 Como Rodar o Projeto com Docker (Servidor ou Desenvolvimento)
 
-### 1. Clonar o repositório
+### 1. Pré-requisitos
 
-```bash
-git clone https://github.com/seuusuario/dp_ses.git
-cd dp_ses
-```
-
-### 2. Criar ambiente virtual
+Certifique-se de que o Docker e Docker Compose estão instalados:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+docker --version
+docker compose version
 ```
 
-### 3. Instalar dependências
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Criar banco e aplicar migrações
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-### 5. Criar superusuário
-
-```bash
-python manage.py createsuperuser
-```
-
----
-
-## 🚀 Execução Local
-
-```bash
-python manage.py runserver
-```
-
-Acesse via navegador: [http://localhost:8000](http://localhost:8000)
-
----
-
-## 📦 Deploy em Servidor Debian (Gunicorn + Nginx)
-
-### Pré-requisitos no servidor:
-- Python 3.10+
-- Git
-- Virtualenv
-- Gunicorn
-- Nginx
-
-### Passos principais:
-
-1. Clonar o repositório no servidor:
+### 2. Clonar o repositório
 
 ```bash
 git clone https://github.com/HRRBC/dp_ses.git
+cd dp_ses
 ```
 
-2. Criar e ativar ambiente virtual:
+### 3. Subir os containers
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+docker compose up -d --build
 ```
 
-3. Instalar dependências:
+### 4. Acessar o sistema
+
+Abra o navegador em: [http://localhost](http://localhost)
+
+> Caso esteja em um servidor, substitua `localhost` pelo IP do servidor.
+
+---
+
+## 🧑‍💻 Comandos Úteis
+
+### Criar superusuário Django (após subir os containers)
 
 ```bash
-pip install -r requirements.txt
+docker compose exec django-app python manage.py createsuperuser
 ```
 
-4. Aplicar migrações e coletar estáticos:
+### Aplicar migrações manualmente (caso necessário)
 
 ```bash
-python manage.py migrate
-python manage.py collectstatic
+docker compose exec django-app python manage.py migrate
 ```
 
-5. Configurar o Gunicorn:
+### Rodar importação de colaboradores via planilha
 
 ```bash
-gunicorn --workers 3 --bind unix:/home/usuario/dp_ses.sock dp_ses.wsgi:application
+docker compose exec django-app python manage.py importar_colaborador
 ```
-
-6. Configurar o Nginx com redirecionamento para o socket do Gunicorn.
 
 ---
 
 ## 🔁 Atualização do Sistema no Servidor
 
-### 1. Acesse o servidor via SSH
+1. Acesse o servidor via SSH:
 
 ```bash
-ssh usuario@seu_servidor
+ssh usuario@IP_DO_SERVIDOR
 cd /caminho/para/dp_ses
 ```
 
-### 2. Puxe as atualizações do GitHub:
+2. Puxe as alterações do repositório:
 
 ```bash
 git pull origin main
 ```
 
-> Caso você faça push localmente, o GitHub já estará atualizado.
-
-### 3. Reinicie o Gunicorn e o Nginx
+3. Reconstrua e reinicie os containers:
 
 ```bash
-sudo systemctl restart gunicorn
-sudo systemctl restart nginx
+docker compose up -d --build
+```
+
+4. (Opcional) Remover containers órfãos:
+
+```bash
+docker compose up -d --remove-orphans
 ```
 
 ---
 
 ## 🔧 Manutenção e Expansão
 
-Para novos desenvolvedores:
-
-- Os modelos estão no app `colaboradores`, consulte o arquivo `models.py`.
-- Para criar novas funcionalidades:
-  - Crie novas views em `views.py`
-  - Crie ou edite os templates em `templates/`
-  - Adicione novas rotas em `urls.py`
-- Sempre crie branches para novos recursos e envie pull requests.
-- Documente suas alterações no `CHANGELOG.md` (se aplicável).
+- As funcionalidades estão organizadas no app `dp_ses_management`.
+- Novas funcionalidades devem seguir o padrão MVC do Django.
+- Use branches nomeadas e envie pull requests.
+- Documente mudanças relevantes no `CHANGELOG.md`.
 
 ---
 
 ## 👥 Contribuindo
 
-Sinta-se à vontade para enviar sugestões, relatar problemas ou contribuir com melhorias por meio de pull requests.
+Contribuições são bem-vindas! Relate bugs, abra issues ou envie PRs com melhorias.
 
 ---
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
+Este projeto está sob a Licença MIT. Veja o arquivo `LICENSE` para mais informações.
