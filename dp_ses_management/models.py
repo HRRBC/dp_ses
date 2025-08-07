@@ -34,6 +34,9 @@ class Colaborador(models.Model):
         ('same', 'SAME'),
         ('uti', 'UTI'),
         ('dp', 'Departamento Pessoal'),
+        ('plantonista', 'Plantonista'),
+        ('evolucionista', 'Evolucionista'),
+
     ]
     setor_trabalho = models.CharField(max_length=255, choices=SETOR_CHOICES, verbose_name="Setor de trabalho", default='enfermaria', blank=True, null=True)
 
@@ -43,6 +46,13 @@ class Colaborador(models.Model):
         ('noite', 'Noite'),
         ('integral', 'Integral'),
         ('diarista', 'Diarista'),
+        ('segunda', 'Segunda-Feira'),
+        ('terca', 'Terça-Feira'),
+        ('quarta', 'Quarta-Feira'),
+        ('quinta', 'Quinta-Feira'),
+        ('sexta', 'Sexta-Feira'),
+        ('sabado', 'Sábado'),
+        ('domingo', 'Domingo'),
     ]
     turno = models.CharField(max_length=255, choices=TURNO_CHOICES, verbose_name="Turno", default='manha', blank=True, null=True)
 

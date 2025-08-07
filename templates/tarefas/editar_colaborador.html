@@ -171,6 +171,8 @@
                                     <option value="same" {% if colaborador.setor_trabalho == "same" %}selected{% endif %}>SAME</option>
                                     <option value="uti" {% if colaborador.setor_trabalho == "uti" %}selected{% endif %}>UTI</option>
                                     <option value="dp" {% if colaborador.setor_trabalho == "dp" %}selected{% endif %}>Departamento Pessoal</option>
+                                    <option value="plantonista" {% if colaborador.setor_trabalho == "plantonista" %}selected{% endif %}>Plantonista</option>
+                                    <option value="evolucionista" {% if colaborador.setor_trabalho == "evolucionista" %}selected{% endif %}>Evolucionista</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -182,6 +184,13 @@
                                     <option value="noite" {% if colaborador.turno == "noite" %}selected{% endif %}>Noite</option>
                                     <option value="integral" {% if colaborador.turno == "integral" %}selected{% endif %}>Integral</option>
                                     <option value="diarista" {% if colaborador.turno == "diarista" %}selected{% endif %}>Diarista</option>
+                                    <option value="segunda" {% if colaborador.turno == "segunda" %}selected{% endif %}>Segunda-Feira</option>
+                                    <option value="terca" {% if colaborador.turno == "terca" %}selected{% endif %}>Terça-Feira</option>
+                                    <option value="quarta" {% if colaborador.turno == "quarta" %}selected{% endif %}>Quarta-Feira</option>
+                                    <option value="quinta" {% if colaborador.turno == "quinta" %}selected{% endif %}>Quinta-Feira</option>
+                                    <option value="sexta" {% if colaborador.turno == "sexta" %}selected{% endif %}>Sexta-Feira</option>
+                                    <option value="sabado" {% if colaborador.turno == "sabado" %}selected{% endif %}>Sábado</option>
+                                    <option value="domingo" {% if colaborador.turno == "domingo" %}selected{% endif %}>Domingo</option>
                                 </select>
                             </div>
                             <div class="col-md-4">

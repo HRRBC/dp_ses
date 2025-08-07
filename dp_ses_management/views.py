@@ -168,11 +168,14 @@ def editar_colaborador(request, id):
 
     return render(request, 'tarefas/editar_colaborador.html', {'colaborador': colaborador})
 
+# A sua view listar_colaboradores deve ficar assim:
+
 @login_required(login_url='/auth/login/')
 def listar_colaboradores(request):
     filtro_setor = request.GET.get('setor', '')
     filtro_status = request.GET.get('status', '')
     filtro_busca_nome = request.GET.get('busca_nome', '').strip()
+    filtro_turno = request.GET.get('turno', '')  # <-- Linha adicionada
 
     colaboradores = Colaborador.objects.all().order_by('nome_completo')
 
@@ -180,7 +183,8 @@ def listar_colaboradores(request):
         colaboradores = colaboradores.filter(setor_trabalho=filtro_setor)
     if filtro_status:
         colaboradores = colaboradores.filter(status=filtro_status)
-
+    if filtro_turno:  # <-- Lógica para filtrar por turno
+        colaboradores = colaboradores.filter(turno=filtro_turno)
     if filtro_busca_nome:
         colaboradores = colaboradores.filter(nome_completo__icontains=filtro_busca_nome)
 
@@ -192,6 +196,7 @@ def listar_colaboradores(request):
         'filtro_setor': filtro_setor,
         'filtro_status': filtro_status,
         'filtro_busca_nome': filtro_busca_nome,
+        'filtro_turno': filtro_turno, # <-- Valor passado para manter a seleção no HTML
         'setores': sorted(list(set(setores_choices))),
         'status_opcoes': status_choices,
     }
