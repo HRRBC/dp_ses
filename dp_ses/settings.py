@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'dp_ses.wsgi.application'
 ############# BANCO DE TESTE %+###########################################
 ##########################################################################
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # Isso cria o arquivo no diretório do projeto
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',  # Isso cria o arquivo no diretório do projeto
+#    }
+#}
 
 ##########################################################################
 ############# BANCO DE PRODUÇÃO ##########################################

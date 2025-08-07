@@ -8,23 +8,23 @@ Este sistema tem como objetivo auxiliar na **gestão de funcionários contratado
 
 O sistema foi desenvolvido para otimizar a rotina administrativa do hospital, com foco em:
 
-- Centralização de dados dos colaboradores do estado;
-- Cadastro, edição e inativação de colaboradores;
-- Geração de folhas de ponto mensais em PDF;
-- Registro de batidas de ponto manuais;
+- Centralização de dados dos colaboradores do estado;  
+- Cadastro, edição e inativação de colaboradores;  
+- Geração de folhas de ponto mensais em PDF;  
+- Registro de batidas de ponto manuais;  
 - Interface simples e funcional para uso administrativo.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Backend**: Python + Django
-- **Banco de Dados**: PostgreSQL (via Docker)
-- **Frontend**: HTML + CSS + Bootstrap
-- **Containerização**: Docker + Docker Compose
-- **Servidor Web**: Nginx (via Docker)
-- **Sistema Operacional**: Debian
-- **Hospedagem de código**: GitHub
+- **Backend**: Python + Django  
+- **Banco de Dados**: PostgreSQL (via Docker)  
+- **Frontend**: HTML + CSS + Bootstrap  
+- **Containerização**: Docker + Docker Compose  
+- **Servidor Web**: Nginx (via Docker)  
+- **Sistema Operacional**: Debian  
+- **Hospedagem de código**: GitHub  
 - **Controle de versão**: Git
 
 ---
@@ -47,7 +47,7 @@ dp_ses/
 │   └── ...                    # Arquivos estáticos (CSS, JS, imagens)
 ├── templates/
 │   └── ...                    # Templates HTML
-├── readme.md
+├── README.md
 └── ...
 ```
 
@@ -90,19 +90,19 @@ Abra o navegador em: [http://localhost](http://localhost)
 ### Criar superusuário Django (após subir os containers)
 
 ```bash
-docker compose exec django-app python manage.py createsuperuser
+docker compose exec web python manage.py createsuperuser
 ```
 
 ### Aplicar migrações manualmente (caso necessário)
 
 ```bash
-docker compose exec django-app python manage.py migrate
+docker compose exec web python manage.py migrate
 ```
 
 ### Rodar importação de colaboradores via planilha
 
 ```bash
-docker compose exec django-app python manage.py importar_colaborador
+docker compose exec web python manage.py importar_colaborador
 ```
 
 ---
@@ -138,9 +138,9 @@ docker compose up -d --remove-orphans
 
 ## 🔧 Manutenção e Expansão
 
-- As funcionalidades estão organizadas no app `dp_ses_management`.
-- Novas funcionalidades devem seguir o padrão MVC do Django.
-- Use branches nomeadas e envie pull requests.
+- As funcionalidades estão organizadas no app `dp_ses_management`.  
+- Novas funcionalidades devem seguir o padrão MVC do Django.  
+- Use branches nomeadas e envie pull requests.  
 - Documente mudanças relevantes no `CHANGELOG.md`.
 
 ---
