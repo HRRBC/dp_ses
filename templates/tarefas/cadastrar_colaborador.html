@@ -346,7 +346,7 @@
                         <div class="row g-3 g-md-4 mb-3 mb-md-4">
                             <div class="col-md-6">
                                 <label for="id_nome_mae" class="form-label">Nome da Mãe</label>
-                                <input type="text" name="nome_mae" id="id_nome_mae" class="form-control" required />
+                                <input type="text" name="nome_mae" id="id_nome_mae" class="form-control" />
                                 <div class="invalid-feedback">Por favor, informe o nome da mãe.</div>
                             </div>
                             <div class="col-md-6">
@@ -362,17 +362,17 @@
                         <div class="row g-3 g-md-4 mb-3 mb-md-4">
                             <div class="col-md-4">
                                 <label for="id_data_nascimento" class="form-label">Data de Nascimento</label>
-                                <input type="date" name="data_nascimento" id="id_data_nascimento" class="form-control" required />
+                                <input type="date" name="data_nascimento" id="id_data_nascimento" class="form-control" />
                                 <div class="invalid-feedback">Por favor, informe a data de nascimento.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_naturalidade" class="form-label">Naturalidade (Cidade/UF)</label>
-                                <input type="text" name="naturalidade" id="id_naturalidade" class="form-control" placeholder="Ex: Recife/PE" required />
+                                <input type="text" name="naturalidade" id="id_naturalidade" class="form-control" placeholder="Ex: Recife/PE" />
                                 <div class="invalid-feedback">Por favor, informe a naturalidade.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_estado_civil" class="form-label">Estado Civil</label>
-                                <select name="estado_civil" id="id_estado_civil" class="form-select" required>
+                                <select name="estado_civil" id="id_estado_civil" class="form-select">
                                     <option value="">Selecione</option>
                                     <option value="solteiro">Solteiro(a)</option>
                                     <option value="casado">Casado(a)</option>
@@ -384,47 +384,47 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="id_cpf" class="form-label">CPF</label>
-                                <input type="text" name="cpf" id="id_cpf" class="form-control cpf-mask" required placeholder="000.000.000-00"/>
+                                <input type="text" name="cpf" id="id_cpf" class="form-control cpf-mask" placeholder="000.000.000-00"/>
                                 <div class="invalid-feedback">Por favor, informe um CPF válido.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_rg_completo" class="form-label">RG (Número e Órgão Emissor)</label>
-                                <input type="text" name="rg_completo" id="id_rg_completo" class="form-control" placeholder="Ex: 12345678 SSP/PE" required />
+                                <input type="text" name="rg_completo" id="id_rg_completo" class="form-control" placeholder="Ex: 12345678 SSP/PE" />
                                 <div class="invalid-feedback">Por favor, informe o RG completo.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_numero_ctps" class="form-label">Número da CTPS</label>
-                                <input type="text" name="numero_ctps" id="id_numero_ctps" class="form-control" placeholder="0000000" required />
+                                <input type="text" name="numero_ctps" id="id_numero_ctps" class="form-control" placeholder="0000000" />
                                 <div class="invalid-feedback">Por favor, informe o número da CTPS.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_serie_ctps" class="form-label">Série da CTPS</label>
-                                <input type="text" name="serie_ctps" id="id_serie_ctps" class="form-control" placeholder="00000" required />
+                                <input type="text" name="serie_ctps" id="id_serie_ctps" class="form-control" placeholder="00000" />
                                 <div class="invalid-feedback">Por favor, informe a série da CTPS.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_uf_ctps" class="form-label">UF da CTPS</label>
-                                <input type="text" name="uf_ctps" id="id_uf_ctps" class="form-control" maxlength="2" placeholder="Ex: PE" required />
+                                <input type="text" name="uf_ctps" id="id_uf_ctps" class="form-control" maxlength="2" placeholder="Ex: PE" />
                                 <div class="invalid-feedback">Por favor, informe a UF da CTPS.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_titulo_eleitor" class="form-label">Título de Eleitor</label>
-                                <input type="text" name="titulo_eleitor" id="id_titulo_eleitor" class="form-control" placeholder="0000 0000 0000" required />
+                                <input type="text" name="titulo_eleitor" id="id_titulo_eleitor" class="form-control" placeholder="0000 0000 0000" />
                                 <div class="invalid-feedback">Por favor, informe o título de eleitor.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_zona_eleitoral" class="form-label">Zona Eleitoral</label>
-                                <input type="text" name="zona_eleitoral" id="id_zona_eleitoral" class="form-control" placeholder="000" required />
+                                <input type="text" name="zona_eleitoral" id="id_zona_eleitoral" class="form-control" placeholder="000" />
                                 <div class="invalid-feedback">Por favor, informe a zona eleitoral.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_secao_eleitoral" class="form-label">Seção Eleitoral</label>
-                                <input type="text" name="secao_eleitoral" id="id_secao_eleitoral" class="form-control" placeholder="000" required />
+                                <input type="text" name="secao_eleitoral" id="id_secao_eleitoral" class="form-control" placeholder="000" />
                                 <div class="invalid-feedback">Por favor, informe a seção eleitoral.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_estado_vota" class="form-label">Estado onde Vota</label>
-                                <input type="text" name="estado_vota" id="id_estado_vota" class="form-control" maxlength="2" placeholder="Ex: PE" required />
+                                <input type="text" name="estado_vota" id="id_estado_vota" class="form-control" maxlength="2" placeholder="Ex: PE" />
                                 <div class="invalid-feedback">Por favor, informe o estado onde vota.</div>
                             </div>
                             <div class="col-md-4">
@@ -433,7 +433,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="id_grau_instrucao" class="form-label">Grau de Instrução</label>
-                                <input type="text" name="grau_instrucao" id="id_grau_instrucao" class="form-control" placeholder="Ex: Ensino Superior Completo" required />
+                                <input type="text" name="grau_instrucao" id="id_grau_instrucao" class="form-control" placeholder="Ex: Ensino Superior Completo" />
                                 <div class="invalid-feedback">Por favor, informe o grau de instrução.</div>
                             </div>
                             <div class="col-md-4">
@@ -449,7 +449,7 @@
                         <div class="row g-3 g-md-4 mb-3 mb-md-4">
                             <div class="col-md-4">
                                 <label for="id_celular" class="form-label">Celular</label>
-                                <input type="tel" name="celular" id="id_celular" class="form-control sp-celphones" placeholder="(00) 00000-0000" required />
+                                <input type="tel" name="celular" id="id_celular" class="form-control sp-celphones" placeholder="(00) 00000-0000" />
                                 <div class="invalid-feedback">Por favor, informe um número de celular válido.</div>
                             </div>
                             <div class="col-md-4">
@@ -458,7 +458,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="id_email" class="form-label">E-mail</label>
-                                <input type="email" name="email" id="id_email" class="form-control" placeholder="email@exemplo.com" required />
+                                <input type="email" name="email" id="id_email" class="form-control" placeholder="email@exemplo.com" />
                                 <div class="invalid-feedback">Por favor, informe um e-mail válido.</div>
                             </div>
                         </div>
@@ -470,17 +470,17 @@
                         <div class="row g-3 g-md-4 mb-3 mb-md-4">
                             <div class="col-md-3">
                                 <label for="id_cep" class="form-label">CEP</label>
-                                <input type="text" name="cep" id="id_cep" class="form-control cep-mask" placeholder="00000-000" required />
+                                <input type="text" name="cep" id="id_cep" class="form-control cep-mask" placeholder="00000-000" />
                                 <div class="invalid-feedback">Por favor, informe um CEP válido.</div>
                             </div>
                             <div class="col-md-7">
                                 <label for="id_endereco" class="form-label">Logradouro</label>
-                                <input type="text" name="endereco" id="id_endereco" class="form-control" placeholder="Rua, Avenida, etc." required />
+                                <input type="text" name="endereco" id="id_endereco" class="form-control" placeholder="Rua, Avenida, etc." />
                                 <div class="invalid-feedback">Por favor, informe o logradouro.</div>
                             </div>
                             <div class="col-md-2">
                                 <label for="id_numero" class="form-label">Número</label>
-                                <input type="text" name="numero" id="id_numero" class="form-control" placeholder="Ex: 123" required />
+                                <input type="text" name="numero" id="id_numero" class="form-control" placeholder="Ex: 123" />
                                 <div class="invalid-feedback">Por favor, informe o número.</div>
                             </div>
                             <div class="col-md-4">
@@ -489,17 +489,17 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="id_bairro" class="form-label">Bairro</label>
-                                <input type="text" name="bairro" id="id_bairro" class="form-control" required />
+                                <input type="text" name="bairro" id="id_bairro" class="form-control" />
                                 <div class="invalid-feedback">Por favor, informe o bairro.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_cidade" class="form-label">Cidade</label>
-                                <input type="text" name="cidade" id="id_cidade" class="form-control" required />
+                                <input type="text" name="cidade" id="id_cidade" class="form-control" />
                                 <div class="invalid-feedback">Por favor, informe a cidade.</div>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_uf" class="form-label">UF</label>
-                                <input type="text" name="uf" id="id_uf" class="form-control" maxlength="2" placeholder="Ex: PE" required />
+                                <input type="text" name="uf" id="id_uf" class="form-control" maxlength="2" placeholder="Ex: PE" />
                                 <div class="invalid-feedback">Por favor, informe a UF.</div>
                             </div>
                         </div>

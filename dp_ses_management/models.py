@@ -3,6 +3,7 @@ from django.db import models
 class Colaborador(models.Model):
     # 1. Identificação
     registro = models.AutoField(primary_key=True)
+    # A matrícula deve continuar sendo única para cada VÍNCULO de trabalho
     matricula = models.CharField(max_length=255, unique=True, verbose_name="Matrícula (código funcional)", blank=True, null=True)
     nome_completo = models.CharField(max_length=255, verbose_name="Nome completo", blank=True, null=True)
 
@@ -36,7 +37,6 @@ class Colaborador(models.Model):
         ('dp', 'Departamento Pessoal'),
         ('plantonista', 'Plantonista'),
         ('evolucionista', 'Evolucionista'),
-
     ]
     setor_trabalho = models.CharField(max_length=255, choices=SETOR_CHOICES, verbose_name="Setor de trabalho", default='enfermaria', blank=True, null=True)
 
@@ -102,9 +102,11 @@ class Colaborador(models.Model):
     estado_vota = models.CharField(max_length=255, blank=True, null=True, verbose_name="Estado onde vota")
 
     rg_completo = models.CharField(max_length=255, verbose_name="RG (Número e órgão emissor)", blank=True, null=True)
-    cpf = models.CharField(max_length=255, unique=True, verbose_name="CPF", blank=True, null=True)
+    # CPF não é mais único para permitir múltiplos vínculos
+    cpf = models.CharField(max_length=255, verbose_name="CPF", blank=True, null=True)
 
-    numero_ctps = models.CharField(max_length=255, unique=True, verbose_name="Número da CTPS", blank=True, null=True)
+    # Número da CTPS não é mais único para permitir múltiplos vínculos
+    numero_ctps = models.CharField(max_length=255, verbose_name="Número da CTPS", blank=True, null=True)
     serie_ctps = models.CharField(max_length=255, verbose_name="Série da CTPS", blank=True, null=True)
     uf_ctps = models.CharField(max_length=255, verbose_name="UF da CTPS", blank=True, null=True)
 
@@ -116,7 +118,8 @@ class Colaborador(models.Model):
     # 5. Contato
     celular = models.CharField(max_length=255, verbose_name="Celular", blank=True, null=True)
     telefone_fixo = models.CharField(max_length=255, blank=True, null=True, verbose_name="Telefone fixo")
-    email = models.EmailField(verbose_name="E-mail", unique=True, blank=True, null=True)
+    # E-mail não é mais único para permitir múltiplos vínculos
+    email = models.EmailField(verbose_name="E-mail", blank=True, null=True)
 
     # 6. Endereço
     cep = models.CharField(max_length=255, verbose_name="CEP", blank=True, null=True)
