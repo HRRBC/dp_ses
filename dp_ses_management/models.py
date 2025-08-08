@@ -22,6 +22,7 @@ class Colaborador(models.Model):
 
     SETOR_CHOICES = [
         ('almoxarifado', 'Almoxarifado'),
+        ('administrativo', 'Administrativo')
         ('ambulatorio', 'Ambulatório'),
         ('bloco_cirurgico', 'Bloco Cirúrgico'),
         ('ccih', 'CCIH'),
@@ -44,7 +45,7 @@ class Colaborador(models.Model):
         ('manha', 'Manhã'),
         ('tarde', 'Tarde'),
         ('noite', 'Noite'),
-        ('integral', 'Integral'),
+        ('plantonista', 'Plantonista'),
         ('diarista', 'Diarista'),
         ('segunda', 'Segunda-Feira'),
         ('terca', 'Terça-Feira'),
