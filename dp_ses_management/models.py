@@ -22,7 +22,7 @@ class Colaborador(models.Model):
 
     SETOR_CHOICES = [
         ('almoxarifado', 'Almoxarifado'),
-        ('administrativo', 'Administrativo')
+        ('administrativo', 'Administrativo'),
         ('ambulatorio', 'Ambulatório'),
         ('bloco_cirurgico', 'Bloco Cirúrgico'),
         ('ccih', 'CCIH'),
