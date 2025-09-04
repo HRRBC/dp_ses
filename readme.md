@@ -128,13 +128,19 @@ git pull origin main
 docker compose up -d --build
 ```
 
-4. (Opcional) Remover containers órfãos:
+4. Reiniciar todos os containers:
+
+```bash
+docker compose restart
+```
+5. (Opcional) Remover containers órfãos:
 
 ```bash
 docker compose up -d --remove-orphans
 ```
 
 ---
+
 
 ## 🔧 Manutenção e Expansão
 
