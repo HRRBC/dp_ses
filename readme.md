@@ -53,7 +53,7 @@ dp_ses/
 
 ---
 
-## 🚀 Como Rodar o Projeto com Docker (Servidor ou Desenvolvimento)
+## 🚀 Como Rodar ou iniciar o Projeto com Docker (Servidor ou Desenvolvimento)
 
 ### 1. Pré-requisitos
 
@@ -74,10 +74,12 @@ cd dp_ses
 ### 3. Subir os containers
 
 ```bash
+cd var/dp_ses_app/dp_ses/  #local onde esta salvo
 docker compose up -d --build
 ```
 
 ### 4. Acessar o sistema
+abra o putty e se conecte ao ip 192.168.140.52
 
 Abra o navegador em: [http://localhost](http://localhost)
 
