@@ -114,8 +114,8 @@ docker compose exec web python manage.py importar_colaborador
 1. Acesse o servidor via SSH:
 
 ```bash
-ssh usuario@IP_DO_SERVIDOR
-cd /caminho/para/dp_ses
+ssh root@IP_DO_SERVIDOR
+cd /var/dp_ses
 ```
 
 2. Puxe as alterações do repositório:
