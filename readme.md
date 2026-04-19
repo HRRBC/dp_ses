@@ -151,11 +151,6 @@ docker compose up -d --remove-orphans
 - Use branches nomeadas e envie pull requests.  
 - Documente mudanças relevantes no `CHANGELOG.md`.
 
----
-
-## 👥 Contribuindo
-
-Contribuições são bem-vindas! Relate bugs, abra issues ou envie PRs com melhorias.
 
 ---
 

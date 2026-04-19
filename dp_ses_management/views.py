@@ -6,7 +6,6 @@ from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import logging
-from .models import Colaborador, Ferias  # IMPORTANTE: Adicione o novo modelo Ferias
 from datetime import datetime
 import os
 from django.conf import settings
@@ -18,6 +17,7 @@ from django.utils import timezone
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from .models import Colaborador, Ferias, HistoricoSetor
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +120,12 @@ def editar_colaborador(request, id):
         colaborador.numero_conselho = request.POST.get('numero_conselho').strip() or None
         colaborador.uf_conselho = request.POST.get('uf_conselho').strip() or None
         colaborador.nome_conselho = request.POST.get('nome_conselho').strip() or None
-        colaborador.setor_trabalho = request.POST.get('setor_trabalho')
+
+        # Detecta mudança de setor ANTES de sobrescrever o valor
+        setor_antigo = colaborador.setor_trabalho
+        novo_setor = request.POST.get('setor_trabalho')
+
+        colaborador.setor_trabalho = novo_setor
         colaborador.turno = request.POST.get('turno')
         colaborador.dias_trabalho = request.POST.get('dias_trabalho').strip() or None
         colaborador.jornada_trabalho = request.POST.get('jornada_trabalho')
@@ -154,19 +159,33 @@ def editar_colaborador(request, id):
         colaborador.bairro = request.POST.get('bairro')
         colaborador.cidade = request.POST.get('cidade')
         colaborador.uf = request.POST.get('uf')
-        # NOVO CAMPO: Observações
         colaborador.observacoes = request.POST.get('observacoes').strip() or None
 
         try:
             colaborador.full_clean()
             colaborador.save()
+
+            # Registra no histórico se o setor mudou
+            if setor_antigo and novo_setor and setor_antigo != novo_setor:
+                HistoricoSetor.objects.create(
+                    colaborador=colaborador,
+                    setor_anterior=setor_antigo,
+                    setor_novo=novo_setor,
+                    observacao=request.POST.get('observacao_setor', '').strip() or None
+                )
+
             messages.success(request, f"Colaborador '{colaborador.nome_completo}' atualizado com sucesso!")
             return redirect('tarefas:listar_colaboradores')
         except Exception as e:
             messages.error(request, f"Erro ao atualizar colaborador: {e}")
             logger.error(f"Erro ao atualizar colaborador: {e}", exc_info=True)
 
-    return render(request, 'tarefas/editar_colaborador.html', {'colaborador': colaborador})
+    # Fora do if POST — executado no GET e no POST com erro
+    context = {
+        'colaborador': colaborador,
+        'historico_setores': colaborador.historico_setores.all(),
+    }
+    return render(request, 'tarefas/editar_colaborador.html', context)
 
 # A sua view listar_colaboradores deve ficar assim:
 
@@ -367,7 +386,7 @@ def gerar_aniversariantes_pdf(request, mes):
     response = HttpResponse(content_type='application/pdf')
     filename = f"Aniversariantes_{mes_nome}_{timezone.now().year}.pdf"
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
-
+    #Obrigado a Lucas, Sandro e Felipe pela ajuda em tudo. Meus mais profundos agradecimentos a todos.
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=A4)
     elements = []

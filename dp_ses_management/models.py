@@ -161,3 +161,36 @@ class Ferias(models.Model):
 
     def __str__(self):
         return f"Férias de {self.colaborador.nome_completo} ({self.data_inicio} a {self.data_fim})"
+
+        
+class HistoricoSetor(models.Model):
+    colaborador = models.ForeignKey(
+        Colaborador,
+        on_delete=models.CASCADE,
+        related_name='historico_setores'
+    )
+    setor_anterior = models.CharField(max_length=255, verbose_name="Setor anterior")
+    setor_novo = models.CharField(max_length=255, verbose_name="Novo setor")
+    data_mudanca = models.DateTimeField(auto_now_add=True, verbose_name="Data da mudança")
+    observacao = models.CharField(
+        max_length=500,
+        blank=True,
+        null=True,
+        verbose_name="Observação (motivo da mudança)"
+    )
+
+    class Meta:
+        ordering = ['-data_mudanca']
+        verbose_name = "Histórico de Setor"
+        verbose_name_plural = "Histórico de Setores"
+
+    def get_setor_anterior_display_custom(self):
+        choices = dict(Colaborador.SETOR_CHOICES)
+        return choices.get(self.setor_anterior, self.setor_anterior)
+
+    def get_setor_novo_display_custom(self):
+        choices = dict(Colaborador.SETOR_CHOICES)
+        return choices.get(self.setor_novo, self.setor_novo)
+
+    def __str__(self):
+        return f"{self.colaborador.nome_completo}: {self.setor_anterior} → {self.setor_novo}"

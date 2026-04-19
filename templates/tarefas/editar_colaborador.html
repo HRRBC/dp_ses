@@ -94,6 +94,8 @@
         #conselho_profissional_section {
             display: none;
         }
+
+
     </style>
 </head>
 <body class="bg-light">
@@ -229,7 +231,7 @@
                             </div>
                         </div>
 
-                        <div id="conselho_profissional_section" class="row g-3 g-md-4 mb-3 mb-md-4">
+                        <div id="conselho_profissional_section" class="row g-3 g-md-4 mb-3 mb-md-4 d-none">
                             <div class="col-md-4">
                                 <label for="id_numero_conselho" class="form-label">Número do Conselho Profissional</label>
                                 <input type="text" name="numero_conselho" id="id_numero_conselho" class="form-control" value="{{ colaborador.numero_conselho|default_if_none:'' }}" />
@@ -245,6 +247,49 @@
                         </div>
                     </section>
 
+                    <!-- Seção: Histórico de Setores -->
+
+                    <!-- Seção: Histórico de Setores -->
+                    <section class="mt-4">
+                        <h4><span>🏷️</span>Histórico de Setores</h4>
+                        <div class="row g-3 mb-3">
+                            <div class="col-12">
+                                <label for="id_observacao_setor" class="form-label text-muted">
+                                    Observação sobre mudança de setor <small>(preenchido automaticamente ao salvar com setor diferente)</small>
+                                </label>
+                                <input type="text" name="observacao_setor" id="id_observacao_setor"
+                                    class="form-control" maxlength="500"
+                                    placeholder="Ex: Remanejamento por necessidade do serviço" />
+                            </div>
+                        </div>
+                        {% if historico_setores %}
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Setor Anterior</th>
+                                        <th>Novo Setor</th>
+                                        <th>Observação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for h in historico_setores %}
+                                    <tr>
+                                        <td>{{ h.data_mudanca|date:"d/m/Y H:i" }}</td>
+                                        <td><span class="badge bg-secondary">{{ h.get_setor_anterior_display_custom }}</span></td>
+                                        <td><span class="badge bg-primary">{{ h.get_setor_novo_display_custom }}</span></td>
+                                        <td>{{ h.observacao|default:"—" }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p class="text-muted fst-italic">Nenhuma mudança de setor registrada ainda.</p>
+                        {% endif %}
+                    </section>
+                    
                     <!-- Seção 3: Informações Familiares -->
                     <section>
                         <h4><span>👪</span>3. Informações Familiares</h4>
