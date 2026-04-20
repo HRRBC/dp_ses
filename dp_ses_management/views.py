@@ -117,7 +117,7 @@ def editar_colaborador(request, id):
         colaborador.nome_completo = request.POST.get('nome_completo')
         colaborador.cargo = request.POST.get('cargo')
         colaborador.funcao = request.POST.get('funcao')
-        colaborador.numero_conselho = request.POST.get('numero_conselho').strip() or None
+        colaborador.numero_conselho = (request.POST.get('numero_conselho') or '').strip() or None
         colaborador.uf_conselho = request.POST.get('uf_conselho').strip() or None
         colaborador.nome_conselho = request.POST.get('nome_conselho').strip() or None
 
