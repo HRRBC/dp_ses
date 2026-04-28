@@ -95,6 +95,47 @@
             display: none; /* controlado via JS */
         }
 
+        /* ── Documentos ── */
+        .doc-card {
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .doc-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+        .doc-card .pdf-placeholder {
+            width: 100%;
+            height: 160px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 2.2rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .doc-card .doc-info {
+            padding: 0.65rem;
+            background: #fff;
+            flex-grow: 1;
+        }
+        .doc-upload-area {
+            border: 2px dashed #ced4da;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            background: #fafafa;
+        }
+
 
     </style>
 </head>
@@ -431,9 +472,158 @@
                         </div>
                     </section>
 
-                    <!-- Seção 7: Observações -->
+                    <!-- Botões intermediários (salvar dados antes de mexer em docs) -->
+                    <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4 pt-3 border-top">
+                        <a href="{% url 'tarefas:listar_colaboradores' %}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+
+                <!-- ══════════════════════════════════════════════════
+                     Seção 7: Documentos (form separado com multipart)
+                     ══════════════════════════════════════════════════ -->
+                <section>
+                    <h4><span>📄</span>7. Documentos</h4>
+
+                    <!-- Upload de novo documento -->
+                    <div class="doc-upload-area mb-4">
+                        <p class="fw-semibold mb-3 text-muted" style="font-size:0.95rem;">📤 Adicionar novo documento</p>
+                        <form method="post" enctype="multipart/form-data"
+                              action="{% url 'tarefas:upload_documento' colaborador.registro %}">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Tipo de Documento</label>
+                                    <select name="tipo" class="form-select" required>
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="rg">RG</option>
+                                        <option value="cpf">CPF</option>
+                                        <option value="titulo_eleitor">Título de Eleitor</option>
+                                        <option value="ctps">CTPS</option>
+                                        <option value="comprovante_residencia">Comprovante de Residência</option>
+                                        <option value="diploma">Diploma / Certificado</option>
+                                        <option value="conselho">Registro no Conselho</option>
+                                        <option value="documento_militar">Documento Militar</option>
+                                        <option value="foto">Foto</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Descrição (opcional)</label>
+                                    <input type="text" name="descricao" class="form-control"
+                                           placeholder="Ex: RG frente, CPF digitalizado..." />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Arquivo</label>
+                                    <input type="file" name="arquivo" class="form-control" required
+                                           accept=".jpg,.jpeg,.png,.gif,.webp,.pdf" />
+                                    <div class="form-text">JPG, PNG, WEBP ou PDF — máx. 10MB</div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary px-4">Enviar Documento</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Lista de documentos existentes -->
+                    {% if documentos %}
+                        <div class="row g-3">
+                            {% for doc in documentos %}
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="doc-card">
+                                    <!-- Preview -->
+                                    {% if doc.is_imagem %}
+                                        <img src="{{ doc.arquivo.url }}"
+                                             alt="{{ doc.get_tipo_display }}"
+                                             onclick="window.open('{{ doc.arquivo.url }}','_blank')"
+                                             title="Clique para ampliar" />
+                                    {% else %}
+                                        <a href="{{ doc.arquivo.url }}" target="_blank" class="pdf-placeholder">
+                                            <span>📄</span>
+                                            <small class="fs-6">Abrir PDF</small>
+                                        </a>
+                                    {% endif %}
+                                    <!-- Informações -->
+                                    <div class="doc-info">
+                                        <span class="badge bg-primary mb-1">{{ doc.get_tipo_display }}</span>
+                                        {% if doc.descricao %}
+                                            <p class="small text-muted mb-1">{{ doc.descricao }}</p>
+                                        {% endif %}
+                                        <p class="small text-muted mb-2">{{ doc.data_upload|date:"d/m/Y H:i" }}</p>
+                                        <div class="d-flex gap-2">
+                                            <a href="{{ doc.arquivo.url }}" target="_blank"
+                                               class="btn btn-sm btn-outline-primary flex-fill">👁 Ver</a>
+                                            <a href="{{ doc.arquivo.url }}" download
+                                               class="btn btn-sm btn-outline-success flex-fill">⬇ Baixar</a>
+                                            <a href="{% url 'tarefas:excluir_documento' doc.id %}"
+                                               class="btn btn-sm btn-outline-danger flex-fill"
+                                               onclick="return confirm('Excluir este documento permanentemente?')">🗑 Excluir</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <div style="font-size:2.5rem;">📂</div>
+                            <p class="mt-2 mb-0">Nenhum documento enviado ainda.</p>
+                        </div>
+                    {% endif %}
+                </section>
+
+                <!-- ══════════════════════════════════════════════════
+                     Seção 8: Observações (form próprio)
+                     ══════════════════════════════════════════════════ -->
+                <form method="post" class="needs-validation" novalidate
+                      action="{% url 'tarefas:editar_colaborador' colaborador.registro %}">
+                    {% csrf_token %}
+                    <!-- campo oculto para identificar que é o submit de observações -->
+                    <input type="hidden" name="matricula"        value="{{ colaborador.matricula }}">
+                    <input type="hidden" name="nome_completo"    value="{{ colaborador.nome_completo }}">
+                    <input type="hidden" name="cargo"            value="{{ colaborador.cargo }}">
+                    <input type="hidden" name="funcao"           value="{{ colaborador.funcao|default_if_none:'' }}">
+                    <input type="hidden" name="numero_conselho"  value="{{ colaborador.numero_conselho|default_if_none:'' }}">
+                    <input type="hidden" name="uf_conselho"      value="{{ colaborador.uf_conselho|default_if_none:'' }}">
+                    <input type="hidden" name="nome_conselho"    value="{{ colaborador.nome_conselho|default_if_none:'' }}">
+                    <input type="hidden" name="setor_trabalho"   value="{{ colaborador.setor_trabalho }}">
+                    <input type="hidden" name="turno"            value="{{ colaborador.turno }}">
+                    <input type="hidden" name="dias_trabalho"    value="{{ colaborador.dias_trabalho|default_if_none:'' }}">
+                    <input type="hidden" name="jornada_trabalho" value="{{ colaborador.jornada_trabalho|default_if_none:'' }}">
+                    <input type="hidden" name="tipo_contrato"    value="{{ colaborador.tipo_contrato|default_if_none:'' }}">
+                    <input type="hidden" name="status"           value="{{ colaborador.status }}">
+                    <input type="hidden" name="data_admissao"    value="{{ colaborador.data_admissao|date:'Y-m-d' }}">
+                    <input type="hidden" name="nome_mae"         value="{{ colaborador.nome_mae|default_if_none:'' }}">
+                    <input type="hidden" name="nome_pai"         value="{{ colaborador.nome_pai|default_if_none:'' }}">
+                    <input type="hidden" name="data_nascimento"  value="{{ colaborador.data_nascimento|date:'Y-m-d' }}">
+                    <input type="hidden" name="naturalidade"     value="{{ colaborador.naturalidade|default_if_none:'' }}">
+                    <input type="hidden" name="estado_civil"     value="{{ colaborador.estado_civil }}">
+                    <input type="hidden" name="titulo_eleitor"   value="{{ colaborador.titulo_eleitor|default_if_none:'' }}">
+                    <input type="hidden" name="zona_eleitoral"   value="{{ colaborador.zona_eleitoral|default_if_none:'' }}">
+                    <input type="hidden" name="secao_eleitoral"  value="{{ colaborador.secao_eleitoral|default_if_none:'' }}">
+                    <input type="hidden" name="estado_vota"      value="{{ colaborador.estado_vota|default_if_none:'' }}">
+                    <input type="hidden" name="rg_completo"      value="{{ colaborador.rg_completo|default_if_none:'' }}">
+                    <input type="hidden" name="cpf"              value="{{ colaborador.cpf|default_if_none:'' }}">
+                    <input type="hidden" name="numero_ctps"      value="{{ colaborador.numero_ctps|default_if_none:'' }}">
+                    <input type="hidden" name="serie_ctps"       value="{{ colaborador.serie_ctps|default_if_none:'' }}">
+                    <input type="hidden" name="uf_ctps"          value="{{ colaborador.uf_ctps|default_if_none:'' }}">
+                    <input type="hidden" name="documento_militar" value="{{ colaborador.documento_militar|default_if_none:'' }}">
+                    <input type="hidden" name="grau_instrucao"   value="{{ colaborador.grau_instrucao|default_if_none:'' }}">
+                    <input type="hidden" name="numero_pasep"     value="{{ colaborador.numero_pasep|default_if_none:'' }}">
+                    <input type="hidden" name="celular"          value="{{ colaborador.celular|default_if_none:'' }}">
+                    <input type="hidden" name="telefone_fixo"    value="{{ colaborador.telefone_fixo|default_if_none:'' }}">
+                    <input type="hidden" name="email"            value="{{ colaborador.email|default_if_none:'' }}">
+                    <input type="hidden" name="cep"              value="{{ colaborador.cep|default_if_none:'' }}">
+                    <input type="hidden" name="endereco"         value="{{ colaborador.endereco|default_if_none:'' }}">
+                    <input type="hidden" name="numero"           value="{{ colaborador.numero|default_if_none:'' }}">
+                    <input type="hidden" name="complemento"      value="{{ colaborador.complemento|default_if_none:'' }}">
+                    <input type="hidden" name="bairro"           value="{{ colaborador.bairro|default_if_none:'' }}">
+                    <input type="hidden" name="cidade"           value="{{ colaborador.cidade|default_if_none:'' }}">
+                    <input type="hidden" name="uf"               value="{{ colaborador.uf|default_if_none:'' }}">
+
                     <section>
-                        <h4><span>📝</span>7. Observações</h4>
+                        <h4><span>📝</span>8. Observações</h4>
                         <div class="row g-3 g-md-4 mb-3 mb-md-4">
                             <div class="col-12">
                                 <label for="id_observacoes" class="form-label">Informações Adicionais</label>
@@ -442,7 +632,6 @@
                         </div>
                     </section>
 
-                    <!-- Botões de ação -->
                     <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4 pt-3 border-top">
                         <a href="{% url 'tarefas:listar_colaboradores' %}" class="btn btn-secondary">Cancelar</a>
                         <button type="submit" class="btn btn-primary">Salvar Alterações</button>

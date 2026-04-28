@@ -1,4 +1,5 @@
 from django.db import models
+import os
 
 class Colaborador(models.Model):
     # 1. Identificação
@@ -194,3 +195,51 @@ class HistoricoSetor(models.Model):
 
     def __str__(self):
         return f"{self.colaborador.nome_completo}: {self.setor_anterior} → {self.setor_novo}"
+
+
+def documento_upload_path(instance, filename):
+    """Salva o arquivo em: media/documentos/colaborador_<id>/<filename>"""
+    return f'documentos/colaborador_{instance.colaborador.registro}/{filename}'
+
+
+class DocumentoColaborador(models.Model):
+    TIPO_CHOICES = [
+        ('rg', 'RG'),
+        ('cpf', 'CPF'),
+        ('titulo_eleitor', 'Título de Eleitor'),
+        ('ctps', 'CTPS'),
+        ('comprovante_residencia', 'Comprovante de Residência'),
+        ('diploma', 'Diploma / Certificado'),
+        ('conselho', 'Registro no Conselho'),
+        ('documento_militar', 'Documento Militar'),
+        ('foto', 'Foto'),
+        ('outro', 'Outro'),
+    ]
+
+    colaborador = models.ForeignKey(
+        Colaborador,
+        on_delete=models.CASCADE,
+        related_name='documentos'
+    )
+    tipo = models.CharField(max_length=50, choices=TIPO_CHOICES, verbose_name="Tipo de Documento")
+    descricao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Descrição (opcional)")
+    arquivo = models.FileField(upload_to=documento_upload_path, verbose_name="Arquivo")
+    data_upload = models.DateTimeField(auto_now_add=True, verbose_name="Data do Upload")
+
+    class Meta:
+        ordering = ['tipo', '-data_upload']
+        verbose_name = "Documento do Colaborador"
+        verbose_name_plural = "Documentos do Colaborador"
+
+    def __str__(self):
+        return f"{self.get_tipo_display()} — {self.colaborador.nome_completo}"
+
+    def nome_arquivo(self):
+        return os.path.basename(self.arquivo.name)
+
+    def extensao(self):
+        _, ext = os.path.splitext(self.arquivo.name)
+        return ext.lower()
+
+    def is_imagem(self):
+        return self.extensao() in ['.jpg', '.jpeg', '.png', '.gif', '.webp']

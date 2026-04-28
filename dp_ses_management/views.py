@@ -17,7 +17,7 @@ from django.utils import timezone
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from .models import Colaborador, Ferias, HistoricoSetor
+from .models import Colaborador, Ferias, HistoricoSetor, DocumentoColaborador
 
 logger = logging.getLogger(__name__)
 
@@ -184,6 +184,7 @@ def editar_colaborador(request, id):
     context = {
         'colaborador': colaborador,
         'historico_setores': colaborador.historico_setores.all(),
+        'documentos': colaborador.documentos.all(),
     }
     return render(request, 'tarefas/editar_colaborador.html', context)
 
@@ -500,3 +501,79 @@ def excluir_ferias(request, ferias_id):
     messages.success(request, f"A solicitação de férias de {colaborador_nome} foi excluída com sucesso.")
     
     return redirect('tarefas:listar_ferias')
+
+
+# ─────────────────────────────────────────────────────────
+# DOCUMENTOS DOS COLABORADORES
+# ─────────────────────────────────────────────────────────
+
+@login_required(login_url='/auth/login/')
+def listar_documentos(request, colaborador_id):
+    colaborador = get_object_or_404(Colaborador, registro=colaborador_id)
+    documentos = colaborador.documentos.all()
+    tipo_choices = DocumentoColaborador.TIPO_CHOICES
+    context = {
+        'colaborador': colaborador,
+        'documentos': documentos,
+        'tipo_choices': tipo_choices,
+    }
+    return render(request, 'tarefas/documentos_colaborador.html', context)
+
+
+@login_required(login_url='/auth/login/')
+def upload_documento(request, colaborador_id):
+    colaborador = get_object_or_404(Colaborador, registro=colaborador_id)
+
+    if request.method == 'POST':
+        tipo = request.POST.get('tipo')
+        descricao = request.POST.get('descricao', '').strip() or None
+        arquivo = request.FILES.get('arquivo')
+
+        if not arquivo:
+            messages.error(request, "Nenhum arquivo foi enviado.")
+            return redirect('tarefas:editar_colaborador', id=colaborador_id)
+
+        # Validação de tipo de arquivo (imagens e PDF)
+        extensoes_permitidas = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.pdf']
+        _, ext = os.path.splitext(arquivo.name)
+        if ext.lower() not in extensoes_permitidas:
+            messages.error(request, f"Tipo de arquivo não permitido: {ext}. Use JPG, PNG, GIF, WEBP ou PDF.")
+            return redirect('tarefas:editar_colaborador', id=colaborador_id)
+
+        # Limite de 10MB por arquivo
+        if arquivo.size > 10 * 1024 * 1024:
+            messages.error(request, "O arquivo não pode ser maior que 10MB.")
+            return redirect('tarefas:editar_colaborador', id=colaborador_id)
+
+        try:
+            doc = DocumentoColaborador(
+                colaborador=colaborador,
+                tipo=tipo,
+                descricao=descricao,
+                arquivo=arquivo,
+            )
+            doc.save()
+            messages.success(request, f"Documento '{doc.get_tipo_display()}' enviado com sucesso!")
+        except Exception as e:
+            messages.error(request, f"Erro ao salvar o documento: {e}")
+            logger.error(f"Erro ao salvar documento do colaborador {colaborador_id}: {e}", exc_info=True)
+
+    return redirect('tarefas:editar_colaborador', id=colaborador_id)
+
+
+@login_required(login_url='/auth/login/')
+def excluir_documento(request, documento_id):
+    documento = get_object_or_404(DocumentoColaborador, id=documento_id)
+    colaborador_id = documento.colaborador.registro
+
+    try:
+        # Remove o arquivo físico do disco antes de deletar o registro
+        if documento.arquivo and os.path.isfile(documento.arquivo.path):
+            os.remove(documento.arquivo.path)
+        documento.delete()
+        messages.success(request, "Documento excluído com sucesso.")
+    except Exception as e:
+        messages.error(request, f"Erro ao excluir o documento: {e}")
+        logger.error(f"Erro ao excluir documento {documento_id}: {e}", exc_info=True)
+
+    return redirect('tarefas:editar_colaborador', id=colaborador_id)

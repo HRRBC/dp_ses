@@ -18,9 +18,14 @@ urlpatterns = [
     path('aniversariantes/pdf/<str:mes>/', views.gerar_aniversariantes_pdf, name='gerar_aniversariantes_pdf'),
     path('aniversariantes/', views.listar_aniversariantes, name='listar_aniversariantes'),
     path('aniversariantes/pdf/<str:mes>/', views.gerar_aniversariantes_pdf, name='gerar_aniversariantes_pdf'),
-    # NOVO: Rotas para férias
+    # Férias
     path('ferias/', views.listar_ferias, name='listar_ferias'),
     path('ferias/solicitar/', views.solicitar_ferias, name='solicitar_ferias'),
     path('ferias/aprovar/<int:ferias_id>/', views.aprovar_ferias, name='aprovar_ferias'),
     path('ferias/excluir/<int:ferias_id>/', views.excluir_ferias, name='excluir_ferias'),
+
+    # Documentos dos colaboradores
+    path('colaboradores/<int:colaborador_id>/documentos/', views.listar_documentos, name='listar_documentos'),
+    path('colaboradores/<int:colaborador_id>/documentos/upload/', views.upload_documento, name='upload_documento'),
+    path('colaboradores/documentos/excluir/<int:documento_id>/', views.excluir_documento, name='excluir_documento'),
 ]

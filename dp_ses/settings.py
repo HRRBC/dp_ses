@@ -125,5 +125,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'dp_ses_management' / 'static',
 ]
 
+# Arquivos enviados pelos usuários (documentos dos colaboradores)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
