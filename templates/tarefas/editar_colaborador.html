@@ -91,8 +91,8 @@
             }
         }
         
-        #conselho_profissional_section {
-            display: none;
+        .conselho-field {
+            display: none; /* controlado via JS */
         }
 
 
@@ -229,18 +229,16 @@
                                     <option value="exonerado" {% if colaborador.status == "exonerado" %}selected{% endif %}>Exonerado</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <div id="conselho_profissional_section" class="row g-3 g-md-4 mb-3 mb-md-4 d-none">
-                            <div class="col-md-4">
+                            <!-- Campos do Conselho Profissional (dentro do mesmo row, visíveis condicionalmente) -->
+                            <div class="col-md-4 conselho-field">
                                 <label for="id_numero_conselho" class="form-label">Número do Conselho Profissional</label>
                                 <input type="text" name="numero_conselho" id="id_numero_conselho" class="form-control" value="{{ colaborador.numero_conselho|default_if_none:'' }}" />
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 conselho-field">
                                 <label for="id_uf_conselho" class="form-label">UF do Conselho</label>
                                 <input type="text" name="uf_conselho" id="id_uf_conselho" class="form-control" value="{{ colaborador.uf_conselho|default_if_none:'' }}" maxlength="2" />
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 conselho-field">
                                 <label for="id_nome_conselho" class="form-label">Nome do Conselho</label>
                                 <input type="text" name="nome_conselho" id="id_nome_conselho" class="form-control" value="{{ colaborador.nome_conselho|default_if_none:'' }}" />
                             </div>
@@ -495,9 +493,9 @@
         function toggleConselhoFields() {
             var cargo = $('#id_cargo').val();
             if (cargo === 'medico' || cargo === 'analista' || cargo === 'assistente') {
-                $('#conselho_profissional_section').slideDown();
+                $('.conselho-field').slideDown();
             } else {
-                $('#conselho_profissional_section').slideUp();
+                $('.conselho-field').slideUp();
             }
         }
         

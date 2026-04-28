@@ -254,6 +254,7 @@
                 <select id="id_setor" name="setor" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring focus:ring-blue-200 focus:border-blue-500 text-sm sm:text-base">
                     <option value="">Todos os setores</option>
                     <option value="almoxarifado" {% if filtro_setor == "almoxarifado" %}selected{% endif %}>Almoxarifado</option>
+                    <option value="administrativo" {% if filtro_setor == "administrativo" %}selected{% endif %}>Administrativo</option>
                     <option value="ambulatorio" {% if filtro_setor == "ambulatorio" %}selected{% endif %}>Ambulatório</option>
                     <option value="bloco_cirurgico" {% if filtro_setor == "bloco_cirurgico" %}selected{% endif %}>Bloco Cirúrgico</option>
                     <option value="ccih" {% if filtro_setor == "ccih" %}selected{% endif %}>CCIH</option>
