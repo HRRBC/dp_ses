@@ -480,7 +480,156 @@
                 </form>
 
                 <!-- ══════════════════════════════════════════════════
-                     Seção 7: Documentos (form separado com multipart)
+                     Seção 7: Férias
+                     ══════════════════════════════════════════════════ -->
+                <section>
+                    <h4><span>🏖️</span>7. Férias</h4>
+                    <form method="post" action="{% url 'tarefas:salvar_ferias_colaborador' colaborador.registro %}">
+                        {% csrf_token %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle" id="tabela-ferias">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Data Início</th>
+                                        <th>Data Fim</th>
+                                        <th>Observação</th>
+                                        <th style="width:60px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for f in ferias_colaborador %}
+                                    <tr>
+                                        <td><input type="date" name="ferias_inicio" class="form-control form-control-sm" value="{{ f.data_inicio|date:'Y-m-d' }}"></td>
+                                        <td><input type="date" name="ferias_fim"    class="form-control form-control-sm" value="{{ f.data_fim|date:'Y-m-d' }}"></td>
+                                        <td><input type="text" name="ferias_obs"    class="form-control form-control-sm" value="{{ f.observacao|default_if_none:'' }}"></td>
+                                        <td class="text-center">
+                                            <a href="{% url 'tarefas:excluir_ferias_colab' f.id %}"
+                                               class="btn btn-sm btn-outline-danger"
+                                               onclick="return confirm('Excluir este registro de férias?')" title="Excluir">🗑</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- 3 linhas em branco extras -->
+                                    <tr><td><input type="date" name="ferias_inicio" class="form-control form-control-sm"></td><td><input type="date" name="ferias_fim" class="form-control form-control-sm"></td><td><input type="text" name="ferias_obs" class="form-control form-control-sm" placeholder="Observação"></td><td></td></tr>
+                                    <tr><td><input type="date" name="ferias_inicio" class="form-control form-control-sm"></td><td><input type="date" name="ferias_fim" class="form-control form-control-sm"></td><td><input type="text" name="ferias_obs" class="form-control form-control-sm" placeholder="Observação"></td><td></td></tr>
+                                    <tr><td><input type="date" name="ferias_inicio" class="form-control form-control-sm"></td><td><input type="date" name="ferias_fim" class="form-control form-control-sm"></td><td><input type="text" name="ferias_obs" class="form-control form-control-sm" placeholder="Observação"></td><td></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="adicionarLinha('tabela-ferias', 'ferias')">+ Adicionar linha</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Salvar Férias</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- ══════════════════════════════════════════════════
+                     Seção 8: Licenças
+                     ══════════════════════════════════════════════════ -->
+                <section>
+                    <h4><span>📋</span>8. Licenças</h4>
+                    <form method="post" action="{% url 'tarefas:salvar_licencas_colaborador' colaborador.registro %}">
+                        {% csrf_token %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle" id="tabela-licencas">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Tipo de Licença</th>
+                                        <th>Data Início</th>
+                                        <th>Data Fim</th>
+                                        <th style="width:60px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for l in licencas %}
+                                    <tr>
+                                        <td>
+                                            <select name="licenca_tipo" class="form-select form-select-sm">
+                                                <option value="">Selecione</option>
+                                                <option value="licencan"      {% if l.tipo == 'licencan' %}selected{% endif %}>Licença Nojo</option>
+                                                <option value="licencag"      {% if l.tipo == 'licencag' %}selected{% endif %}>Licença Gala</option>
+                                                <option value="licencam"      {% if l.tipo == 'licencam' %}selected{% endif %}>Licença Maternidade</option>
+                                                <option value="licencap"      {% if l.tipo == 'licencap' %}selected{% endif %}>Licença Paternidade</option>
+                                                <option value="licencae"      {% if l.tipo == 'licencae' %}selected{% endif %}>Licença Eleitoral</option>
+                                                <option value="licencat"      {% if l.tipo == 'licencat' %}selected{% endif %}>Licença de Trato</option>
+                                                <option value="licencaedu"    {% if l.tipo == 'licencaedu' %}selected{% endif %}>Licença Estudo</option>
+                                                <option value="licencapremio" {% if l.tipo == 'licencapremio' %}selected{% endif %}>Licença Prêmio</option>
+                                                <option value="afastamento"   {% if l.tipo == 'afastamento' %}selected{% endif %}>Afastamento</option>
+                                                <option value="outro"         {% if l.tipo == 'outro' %}selected{% endif %}>Outro</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="date" name="licenca_inicio" class="form-control form-control-sm" value="{{ l.data_inicio|date:'Y-m-d' }}"></td>
+                                        <td><input type="date" name="licenca_fim"    class="form-control form-control-sm" value="{{ l.data_fim|date:'Y-m-d' }}"></td>
+                                        <td class="text-center">
+                                            <a href="{% url 'tarefas:excluir_licenca_colab' l.id %}"
+                                               class="btn btn-sm btn-outline-danger"
+                                               onclick="return confirm('Excluir este registro de licença?')" title="Excluir">🗑</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- 3 linhas em branco extras -->
+                                    {% for _ in "123" %}
+                                    <tr>
+                                        <td><select name="licenca_tipo" class="form-select form-select-sm"><option value="">Selecione</option><option value="licencan">Licença Nojo</option><option value="licencag">Licença Gala</option><option value="licencam">Licença Maternidade</option><option value="licencap">Licença Paternidade</option><option value="licencae">Licença Eleitoral</option><option value="licencat">Licença de Trato</option><option value="licencaedu">Licença Estudo</option><option value="licencapremio">Licença Prêmio</option><option value="afastamento">Afastamento</option><option value="outro">Outro</option></select></td>
+                                        <td><input type="date" name="licenca_inicio" class="form-control form-control-sm"></td>
+                                        <td><input type="date" name="licenca_fim"    class="form-control form-control-sm"></td>
+                                        <td></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="adicionarLinha('tabela-licencas', 'licenca')">+ Adicionar linha</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Salvar Licenças</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- ══════════════════════════════════════════════════
+                     Seção 9: SEI
+                     ══════════════════════════════════════════════════ -->
+                <section>
+                    <h4><span>🗂️</span>9. SEI</h4>
+                    <form method="post" action="{% url 'tarefas:salvar_sei_colaborador' colaborador.registro %}">
+                        {% csrf_token %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle" id="tabela-sei">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Número SEI</th>
+                                        <th>Assunto</th>
+                                        <th style="width:60px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for s in seis %}
+                                    <tr>
+                                        <td><input type="text" name="sei_numero"  class="form-control form-control-sm" value="{{ s.numero_sei|default_if_none:'' }}"  placeholder="Ex: 00000.000000/0000-00"></td>
+                                        <td><input type="text" name="sei_assunto" class="form-control form-control-sm" value="{{ s.assunto|default_if_none:'' }}" placeholder="Assunto do processo"></td>
+                                        <td class="text-center">
+                                            <a href="{% url 'tarefas:excluir_sei_colab' s.id %}"
+                                               class="btn btn-sm btn-outline-danger"
+                                               onclick="return confirm('Excluir este registro SEI?')" title="Excluir">🗑</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- 3 linhas em branco extras -->
+                                    <tr><td><input type="text" name="sei_numero"  class="form-control form-control-sm" placeholder="Ex: 00000.000000/0000-00"></td><td><input type="text" name="sei_assunto" class="form-control form-control-sm" placeholder="Assunto do processo"></td><td></td></tr>
+                                    <tr><td><input type="text" name="sei_numero"  class="form-control form-control-sm" placeholder="Ex: 00000.000000/0000-00"></td><td><input type="text" name="sei_assunto" class="form-control form-control-sm" placeholder="Assunto do processo"></td><td></td></tr>
+                                    <tr><td><input type="text" name="sei_numero"  class="form-control form-control-sm" placeholder="Ex: 00000.000000/0000-00"></td><td><input type="text" name="sei_assunto" class="form-control form-control-sm" placeholder="Assunto do processo"></td><td></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="adicionarLinha('tabela-sei', 'sei')">+ Adicionar linha</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Salvar SEI</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- ══════════════════════════════════════════════════
+                     Seção 10: Documentos (form separado com multipart)
                      ══════════════════════════════════════════════════ -->
                 <section>
                     <h4><span>📄</span>7. Documentos</h4>
@@ -694,6 +843,45 @@
         
         // Foco no primeiro campo ao carregar a página
         $('#id_matricula').focus();
+
+        // ── Adicionar linha nas planilhas de férias / licenças / sei ──
+        window.adicionarLinha = function(tabelaId, tipo) {
+            var tbody = document.querySelector('#' + tabelaId + ' tbody');
+            var tr = document.createElement('tr');
+
+            if (tipo === 'ferias') {
+                tr.innerHTML =
+                    '<td><input type="date" name="ferias_inicio" class="form-control form-control-sm"></td>' +
+                    '<td><input type="date" name="ferias_fim"    class="form-control form-control-sm"></td>' +
+                    '<td><input type="text" name="ferias_obs"    class="form-control form-control-sm" placeholder="Observação"></td>';
+            } else if (tipo === 'licenca') {
+                tr.innerHTML =
+                    '<td><select name="licenca_tipo" class="form-select form-select-sm">' +
+                        '<option value="">Selecione</option>' +
+                        '<option value="licencan">Licença Nojo</option>' +
+                        '<option value="licencag">Licença Gala</option>' +
+                        '<option value="licencam">Licença Maternidade</option>' +
+                        '<option value="licencap">Licença Paternidade</option>' +
+                        '<option value="licencae">Licença Eleitoral</option>' +
+                        '<option value="licencat">Licença de Trato</option>' +
+                        '<option value="licencaedu">Licença Estudo</option>' +
+                        '<option value="licencapremio">Licença Prêmio</option>' +
+                        '<option value="afastamento">Afastamento</option>' +
+                        '<option value="outro">Outro</option>' +
+                    '</select></td>' +
+                    '<td><input type="date" name="licenca_inicio" class="form-control form-control-sm"></td>' +
+                    '<td><input type="date" name="licenca_fim"    class="form-control form-control-sm"></td>';
+            } else if (tipo === 'sei') {
+                tr.innerHTML =
+                    '<td><input type="text" name="sei_numero"  class="form-control form-control-sm" placeholder="Ex: 00000.000000/0000-00"></td>' +
+                    '<td><input type="text" name="sei_assunto" class="form-control form-control-sm" placeholder="Assunto do processo"></td>';
+            }
+
+            tbody.appendChild(tr);
+            // Foca no primeiro input da nova linha
+            var primeiro = tr.querySelector('input, select');
+            if (primeiro) primeiro.focus();
+        };
         
         // Preenchimento automático do endereço via CEP
         $('#id_cep').on('blur', function() {

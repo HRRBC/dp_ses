@@ -243,3 +243,81 @@ class DocumentoColaborador(models.Model):
 
     def is_imagem(self):
         return self.extensao() in ['.jpg', '.jpeg', '.png', '.gif', '.webp']
+
+
+# ─────────────────────────────────────────────────────────
+# FÉRIAS DO COLABORADOR (planilha por colaborador)
+# ─────────────────────────────────────────────────────────
+class FeriasColaborador(models.Model):
+    colaborador = models.ForeignKey(
+        Colaborador,
+        on_delete=models.CASCADE,
+        related_name='ferias_colaborador'
+    )
+    data_inicio = models.DateField(verbose_name="Data Início", blank=True, null=True)
+    data_fim = models.DateField(verbose_name="Data Fim", blank=True, null=True)
+    observacao = models.CharField(max_length=500, blank=True, null=True, verbose_name="Observação")
+
+    class Meta:
+        ordering = ['-data_inicio']
+        verbose_name = "Férias do Colaborador"
+        verbose_name_plural = "Férias dos Colaboradores"
+
+    def __str__(self):
+        return f"Férias {self.colaborador.nome_completo}: {self.data_inicio} a {self.data_fim}"
+
+
+# ─────────────────────────────────────────────────────────
+# LICENÇAS DO COLABORADOR (planilha por colaborador)
+# ─────────────────────────────────────────────────────────
+class LicencaColaborador(models.Model):
+    TIPO_CHOICES = [
+        ('licencan', 'Licença Nojo'),
+        ('licencag', 'Licença Gala'),
+        ('licencam', 'Licença Maternidade'),
+        ('licencap', 'Licença Paternidade'),
+        ('licencae', 'Licença Eleitoral'),
+        ('licencat', 'Licença de Trato'),
+        ('licencaedu', 'Licença Estudo'),
+        ('licencapremio', 'Licença Prêmio'),
+        ('afastamento', 'Afastamento'),
+        ('outro', 'Outro'),
+    ]
+
+    colaborador = models.ForeignKey(
+        Colaborador,
+        on_delete=models.CASCADE,
+        related_name='licencas'
+    )
+    tipo = models.CharField(max_length=50, choices=TIPO_CHOICES, verbose_name="Tipo de Licença", blank=True, null=True)
+    data_inicio = models.DateField(verbose_name="Data Início", blank=True, null=True)
+    data_fim = models.DateField(verbose_name="Data Fim", blank=True, null=True)
+
+    class Meta:
+        ordering = ['-data_inicio']
+        verbose_name = "Licença do Colaborador"
+        verbose_name_plural = "Licenças dos Colaboradores"
+
+    def __str__(self):
+        return f"{self.get_tipo_display()} — {self.colaborador.nome_completo}"
+
+
+# ─────────────────────────────────────────────────────────
+# SEI DO COLABORADOR (planilha por colaborador)
+# ─────────────────────────────────────────────────────────
+class SeiColaborador(models.Model):
+    colaborador = models.ForeignKey(
+        Colaborador,
+        on_delete=models.CASCADE,
+        related_name='seis'
+    )
+    numero_sei = models.CharField(max_length=255, verbose_name="Número SEI", blank=True, null=True)
+    assunto = models.CharField(max_length=500, verbose_name="Assunto", blank=True, null=True)
+
+    class Meta:
+        ordering = ['numero_sei']
+        verbose_name = "SEI do Colaborador"
+        verbose_name_plural = "SEIs dos Colaboradores"
+
+    def __str__(self):
+        return f"SEI {self.numero_sei} — {self.colaborador.nome_completo}"

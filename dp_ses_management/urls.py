@@ -28,4 +28,14 @@ urlpatterns = [
     path('colaboradores/<int:colaborador_id>/documentos/', views.listar_documentos, name='listar_documentos'),
     path('colaboradores/<int:colaborador_id>/documentos/upload/', views.upload_documento, name='upload_documento'),
     path('colaboradores/documentos/excluir/<int:documento_id>/', views.excluir_documento, name='excluir_documento'),
+
+    # Planilhas do colaborador
+    path('colaboradores/<int:colaborador_id>/ferias/salvar/', views.salvar_ferias_colaborador, name='salvar_ferias_colaborador'),
+    path('colaboradores/<int:colaborador_id>/licencas/salvar/', views.salvar_licencas_colaborador, name='salvar_licencas_colaborador'),
+    path('colaboradores/<int:colaborador_id>/sei/salvar/', views.salvar_sei_colaborador, name='salvar_sei_colaborador'),
+
+    # Exclusão individual
+    path('colaboradores/ferias/excluir/<int:ferias_id>/', views.excluir_ferias_colab, name='excluir_ferias_colab'),
+    path('colaboradores/licencas/excluir/<int:licenca_id>/', views.excluir_licenca_colab, name='excluir_licenca_colab'),
+    path('colaboradores/sei/excluir/<int:sei_id>/', views.excluir_sei_colab, name='excluir_sei_colab'),
 ]
