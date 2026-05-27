@@ -14,6 +14,7 @@ class Colaborador(models.Model):
         ('analista', 'Analista em Saúde'),
         ('assistente', 'Assistente em Saúde'),
         ('auxiliar', 'Auxiliar em Saúde'),
+        ('aux_admin', 'Auxiliar Administrativo'),
     ]
     cargo = models.CharField(max_length=255, choices=CARGO_CHOICES, verbose_name="Cargo", default='aux_admin', blank=True, null=True)
     funcao = models.CharField(max_length=255, verbose_name="Função Específica", blank=True, null=True)
@@ -40,6 +41,7 @@ class Colaborador(models.Model):
         ('dp', 'Departamento Pessoal'),
         ('plantonista', 'Plantonista'),
         ('evolucionista', 'Evolucionista'),
+        ('enfermaria', 'Enfermaria'),
     ]
     setor_trabalho = models.CharField(max_length=255, choices=SETOR_CHOICES, verbose_name="Setor de trabalho", default='enfermaria', blank=True, null=True)
 

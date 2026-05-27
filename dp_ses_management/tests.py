@@ -98,8 +98,38 @@ class CadastroColaboradorTestCase(TestCase):
             celular='11987654321', email='a@example.com', cep='11111111', endereco='Rua A', numero='1',
             bairro='Bairro A', cidade='Cidade A', uf='SP', observacoes=''
         )
-        
-    
+
+        dados_duplicados = {
+            'matricula': 'duplicado',
+            'nome_completo': 'Colaborador B',
+            'cargo': 'aux_admin',
+            'funcao': 'Auxiliar',
+            'setor_trabalho': 'ambulatorio',
+            'turno': 'tarde',
+            'dias_trabalho': 'Seg-Sex',
+            'jornada_trabalho': '8h',
+            'tipo_contrato': 'CLT',
+            'status': 'ativo',
+            'data_admissao': '2021-01-01',
+            'nome_mae': 'Mae B',
+            'data_nascimento': '1985-01-01',
+            'naturalidade': 'Cidade B',
+            'estado_civil': 'casado',
+            'rg_completo': '67890 RG',
+            'cpf': '11111111111',
+            'numero_ctps': '7654321',
+            'serie_ctps': '567',
+            'uf_ctps': 'SP',
+            'celular': '11999999999',
+            'email': 'b@example.com',
+            'cep': '22222222',
+            'endereco': 'Rua B',
+            'numero': '2',
+            'bairro': 'Bairro B',
+            'cidade': 'Cidade B',
+            'uf': 'SP',
+            'observacoes': '',
+        }
 
         resposta = self.client.post(self.url, dados_duplicados)
         

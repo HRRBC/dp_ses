@@ -186,6 +186,7 @@
                                     <option value="analista" {% if colaborador.cargo == "analista" %}selected{% endif %}>Analista em Saúde</option>
                                     <option value="assistente" {% if colaborador.cargo == "assistente" %}selected{% endif %}>Assistente em Saúde</option>
                                     <option value="auxiliar" {% if colaborador.cargo == "auxiliar" %}selected{% endif %}>Auxiliar em Saúde</option>
+                                    <option value="aux_admin" {% if colaborador.cargo == "aux_admin" %}selected{% endif %}>Auxiliar Administrativo</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -202,7 +203,7 @@
                                     <option value="">Selecione o Setor</option>
                                     <option value="almoxarifado" {% if colaborador.setor_trabalho == "almoxarifado" %}selected{% endif %}>Almoxarifado</option>
                                     <option value="ambulatorio" {% if colaborador.setor_trabalho == "ambulatorio" %}selected{% endif %}>Ambulatório</option>
-                                    <option value="administrativo" {% if colaborador.setor_trabalho == "ambulatorio" %}selected{% endif %}>Administrativo</option>
+                                    <option value="administrativo" {% if colaborador.setor_trabalho == "administrativo" %}selected{% endif %}>Administrativo</option>
                                     <option value="bloco_cirurgico" {% if colaborador.setor_trabalho == "bloco_cirurgico" %}selected{% endif %}>Bloco Cirúrgico</option>
                                     <option value="ccih" {% if colaborador.setor_trabalho == "ccih" %}selected{% endif %}>CCIH</option>
                                     <option value="clinica_cirurgica" {% if colaborador.setor_trabalho == "clinica_cirurgica" %}selected{% endif %}>Clínica Cirúrgica</option>
@@ -218,6 +219,7 @@
                                     <option value="dp" {% if colaborador.setor_trabalho == "dp" %}selected{% endif %}>Departamento Pessoal</option>
                                     <option value="plantonista" {% if colaborador.setor_trabalho == "plantonista" %}selected{% endif %}>Plantonista</option>
                                     <option value="evolucionista" {% if colaborador.setor_trabalho == "evolucionista" %}selected{% endif %}>Evolucionista</option>
+                                    <option value="enfermaria" {% if colaborador.setor_trabalho == "enfermaria" %}selected{% endif %}>Enfermaria</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -477,6 +479,22 @@
                         <a href="{% url 'tarefas:listar_colaboradores' %}" class="btn btn-secondary">Cancelar</a>
                         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                     </div>
+
+                    <!-- Seção: Observações (dentro do form principal) -->
+                    <section class="mt-4">
+                        <h4><span>📝</span>Observações</h4>
+                        <div class="row g-3 g-md-4 mb-3 mb-md-4">
+                            <div class="col-12">
+                                <label for="id_observacoes" class="form-label">Informações Adicionais</label>
+                                <textarea name="observacoes" id="id_observacoes" class="form-control" rows="4">{{ colaborador.observacoes|default_if_none:'' }}</textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4 pt-3 border-top">
+                        <a href="{% url 'tarefas:listar_colaboradores' %}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
                 </form>
 
                 <!-- ══════════════════════════════════════════════════
@@ -722,70 +740,7 @@
                     {% endif %}
                 </section>
 
-                <!-- ══════════════════════════════════════════════════
-                     Seção 8: Observações (form próprio)
-                     ══════════════════════════════════════════════════ -->
-                <form method="post" class="needs-validation" novalidate
-                      action="{% url 'tarefas:editar_colaborador' colaborador.registro %}">
-                    {% csrf_token %}
-                    <!-- campo oculto para identificar que é o submit de observações -->
-                    <input type="hidden" name="matricula"        value="{{ colaborador.matricula }}">
-                    <input type="hidden" name="nome_completo"    value="{{ colaborador.nome_completo }}">
-                    <input type="hidden" name="cargo"            value="{{ colaborador.cargo }}">
-                    <input type="hidden" name="funcao"           value="{{ colaborador.funcao|default_if_none:'' }}">
-                    <input type="hidden" name="numero_conselho"  value="{{ colaborador.numero_conselho|default_if_none:'' }}">
-                    <input type="hidden" name="uf_conselho"      value="{{ colaborador.uf_conselho|default_if_none:'' }}">
-                    <input type="hidden" name="nome_conselho"    value="{{ colaborador.nome_conselho|default_if_none:'' }}">
-                    <input type="hidden" name="setor_trabalho"   value="{{ colaborador.setor_trabalho }}">
-                    <input type="hidden" name="turno"            value="{{ colaborador.turno }}">
-                    <input type="hidden" name="dias_trabalho"    value="{{ colaborador.dias_trabalho|default_if_none:'' }}">
-                    <input type="hidden" name="jornada_trabalho" value="{{ colaborador.jornada_trabalho|default_if_none:'' }}">
-                    <input type="hidden" name="tipo_contrato"    value="{{ colaborador.tipo_contrato|default_if_none:'' }}">
-                    <input type="hidden" name="status"           value="{{ colaborador.status }}">
-                    <input type="hidden" name="data_admissao"    value="{{ colaborador.data_admissao|date:'Y-m-d' }}">
-                    <input type="hidden" name="nome_mae"         value="{{ colaborador.nome_mae|default_if_none:'' }}">
-                    <input type="hidden" name="nome_pai"         value="{{ colaborador.nome_pai|default_if_none:'' }}">
-                    <input type="hidden" name="data_nascimento"  value="{{ colaborador.data_nascimento|date:'Y-m-d' }}">
-                    <input type="hidden" name="naturalidade"     value="{{ colaborador.naturalidade|default_if_none:'' }}">
-                    <input type="hidden" name="estado_civil"     value="{{ colaborador.estado_civil }}">
-                    <input type="hidden" name="titulo_eleitor"   value="{{ colaborador.titulo_eleitor|default_if_none:'' }}">
-                    <input type="hidden" name="zona_eleitoral"   value="{{ colaborador.zona_eleitoral|default_if_none:'' }}">
-                    <input type="hidden" name="secao_eleitoral"  value="{{ colaborador.secao_eleitoral|default_if_none:'' }}">
-                    <input type="hidden" name="estado_vota"      value="{{ colaborador.estado_vota|default_if_none:'' }}">
-                    <input type="hidden" name="rg_completo"      value="{{ colaborador.rg_completo|default_if_none:'' }}">
-                    <input type="hidden" name="cpf"              value="{{ colaborador.cpf|default_if_none:'' }}">
-                    <input type="hidden" name="numero_ctps"      value="{{ colaborador.numero_ctps|default_if_none:'' }}">
-                    <input type="hidden" name="serie_ctps"       value="{{ colaborador.serie_ctps|default_if_none:'' }}">
-                    <input type="hidden" name="uf_ctps"          value="{{ colaborador.uf_ctps|default_if_none:'' }}">
-                    <input type="hidden" name="documento_militar" value="{{ colaborador.documento_militar|default_if_none:'' }}">
-                    <input type="hidden" name="grau_instrucao"   value="{{ colaborador.grau_instrucao|default_if_none:'' }}">
-                    <input type="hidden" name="numero_pasep"     value="{{ colaborador.numero_pasep|default_if_none:'' }}">
-                    <input type="hidden" name="celular"          value="{{ colaborador.celular|default_if_none:'' }}">
-                    <input type="hidden" name="telefone_fixo"    value="{{ colaborador.telefone_fixo|default_if_none:'' }}">
-                    <input type="hidden" name="email"            value="{{ colaborador.email|default_if_none:'' }}">
-                    <input type="hidden" name="cep"              value="{{ colaborador.cep|default_if_none:'' }}">
-                    <input type="hidden" name="endereco"         value="{{ colaborador.endereco|default_if_none:'' }}">
-                    <input type="hidden" name="numero"           value="{{ colaborador.numero|default_if_none:'' }}">
-                    <input type="hidden" name="complemento"      value="{{ colaborador.complemento|default_if_none:'' }}">
-                    <input type="hidden" name="bairro"           value="{{ colaborador.bairro|default_if_none:'' }}">
-                    <input type="hidden" name="cidade"           value="{{ colaborador.cidade|default_if_none:'' }}">
-                    <input type="hidden" name="uf"               value="{{ colaborador.uf|default_if_none:'' }}">
 
-                    <section>
-                        <h4><span>📝</span>8. Observações</h4>
-                        <div class="row g-3 g-md-4 mb-3 mb-md-4">
-                            <div class="col-12">
-                                <label for="id_observacoes" class="form-label">Informações Adicionais</label>
-                                <textarea name="observacoes" id="id_observacoes" class="form-control" rows="4">{{ colaborador.observacoes|default_if_none:'' }}</textarea>
-                            </div>
-                        </div>
-                    </section>
-
-                    <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4 pt-3 border-top">
-                        <a href="{% url 'tarefas:listar_colaboradores' %}" class="btn btn-secondary">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
