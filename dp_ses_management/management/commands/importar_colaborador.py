@@ -101,22 +101,15 @@ class Command(BaseCommand):
                     self.stdout.write(f"Data original: {data_nasc} (tipo: {type(data_nasc)})")
                     self.stdout.write(f"Data convertida: {data_nascimento} (tipo: {type(data_nascimento) if data_nascimento else 'None'})")
                     
-                    # Criar/atualizar colaborador
-                    colaborador, created = Colaborador.objects.update_or_create(
+                    # Criar colaborador
+                    colaborador = Colaborador.objects.create(
+                        nome_completo=str(nome).strip(),
                         cpf=cpf_formatado,
-                        defaults={
-                            'nome_completo': str(nome).strip(),
-                            'data_nascimento': data_nascimento,
-                            'status': 'ativo'
-                        }
+                        data_nascimento=data_nascimento,
+                        status='ativo'
                     )
-
-                    if created:
-                        total_criados += 1
-                        self.stdout.write(self.style.SUCCESS(f"✅ Criado: {colaborador.nome_completo}"))
-                    else:
-                        total_atualizados += 1
-                        self.stdout.write(f"✏️ Atualizado: {colaborador.nome_completo}")
+                    total_criados += 1
+                    self.stdout.write(self.style.SUCCESS(f"✅ Criado: {colaborador.nome_completo}"))
 
                 except Exception as e:
                     total_erros += 1

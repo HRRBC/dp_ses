@@ -17,6 +17,7 @@ from django.utils import timezone
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from django.db import transaction
 from .models import Colaborador, Ferias, HistoricoSetor, DocumentoColaborador, FeriasColaborador, LicencaColaborador, SeiColaborador
 
 logger = logging.getLogger(__name__)
@@ -38,7 +39,7 @@ def login(request):
             messages.error(request, "Usuário ou senha inválidos. Por favor, tente novamente.")
             return render(request, 'tarefas/login.html', {'error': 'Usuário ou senha inválidos'})
 
-@login_required(login_url="auth/login/")
+@login_required(login_url='/auth/login/')
 def home(request):
     return render(request, 'tarefas/home.html')
 
@@ -448,7 +449,7 @@ def solicitar_ferias(request):
             colaborador_id = request.POST.get('colaborador_id')
             data_inicio = request.POST.get('data_inicio')
             data_fim = request.POST.get('data_fim')
-            observacoes = request.POST.get('observacoes').strip() or None
+            observacoes = (request.POST.get('observacoes') or '').strip() or None
 
             colaborador_obj = get_object_or_404(Colaborador, registro=colaborador_id)
 
@@ -591,12 +592,13 @@ def salvar_ferias_colaborador(request, colaborador_id):
         fins    = request.POST.getlist('ferias_fim')
         obs     = request.POST.getlist('ferias_obs')
 
-        colaborador.ferias_colaborador.all().delete()
+        with transaction.atomic():
+            colaborador.ferias_colaborador.all().delete()
 
-        for i in range(len(inicios)):
-            inicio = inicios[i].strip() or None
-            fim    = fins[i].strip()    or None
-            ob     = obs[i].strip()     or None
+            for i in range(len(inicios)):
+                inicio = (inicios[i] or '').strip() or None
+                fim    = (fins[i] or '').strip()    or None
+                ob     = (obs[i] or '').strip()     or None
             if inicio or fim or ob:
                 FeriasColaborador.objects.create(
                     colaborador=colaborador,
@@ -620,12 +622,13 @@ def salvar_licencas_colaborador(request, colaborador_id):
         inicios = request.POST.getlist('licenca_inicio')
         fins    = request.POST.getlist('licenca_fim')
 
-        colaborador.licencas.all().delete()
+        with transaction.atomic():
+            colaborador.licencas.all().delete()
 
-        for i in range(len(tipos)):
-            tipo   = tipos[i].strip()   or None
-            inicio = inicios[i].strip() or None
-            fim    = fins[i].strip()    or None
+            for i in range(len(tipos)):
+                tipo   = (tipos[i] or '').strip()   or None
+                inicio = (inicios[i] or '').strip() or None
+                fim    = (fins[i] or '').strip()    or None
             if tipo or inicio or fim:
                 LicencaColaborador.objects.create(
                     colaborador=colaborador,
@@ -648,11 +651,12 @@ def salvar_sei_colaborador(request, colaborador_id):
         numeros  = request.POST.getlist('sei_numero')
         assuntos = request.POST.getlist('sei_assunto')
 
-        colaborador.seis.all().delete()
+        with transaction.atomic():
+            colaborador.seis.all().delete()
 
-        for i in range(len(numeros)):
-            numero  = numeros[i].strip()  or None
-            assunto = assuntos[i].strip() or None
+            for i in range(len(numeros)):
+                numero  = (numeros[i] or '').strip()  or None
+                assunto = (assuntos[i] or '').strip() or None
             if numero or assunto:
                 SeiColaborador.objects.create(
                     colaborador=colaborador,

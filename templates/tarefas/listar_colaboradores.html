@@ -271,6 +271,7 @@
                     <option value="dp" {% if filtro_setor == "dp" %}selected{% endif %}>Departamento Pessoal</option>
                     <option value="plantonista" {% if filtro_setor == "plantonista" %}selected{% endif %}>Plantonista</option>
                     <option value="evolucionista" {% if filtro_setor == "evolucionista" %}selected{% endif %}>Evolucionista</option>
+                    <option value="enfermaria" {% if filtro_setor == "enfermaria" %}selected{% endif %}>Enfermaria</option>
                 </select>
             </div>
             <div>
@@ -280,7 +281,7 @@
                     <option value="manha" {% if filtro_turno == "manha" %}selected{% endif %}>Manhã</option>
                     <option value="tarde" {% if filtro_turno == "tarde" %}selected{% endif %}>Tarde</option>
                     <option value="noite" {% if filtro_turno == "noite" %}selected{% endif %}>Noite</option>
-                    <option value="plantonista" {% if filtro_turno == "integral" %}selected{% endif %}>Plantonista</option>
+                    <option value="plantonista" {% if filtro_turno == "plantonista" %}selected{% endif %}>Plantonista</option>
                     <option value="diarista" {% if filtro_turno == "diarista" %}selected{% endif %}>Diarista</option>
                     <option value="segunda" {% if filtro_turno == "segunda" %}selected{% endif %}>Segunda-Feira</option>
                     <option value="terca" {% if filtro_turno == "terca" %}selected{% endif %}>Terça-Feira</option>
@@ -409,7 +410,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="8" class="text-center py-4 sm:py-6 text-gray-500 text-sm sm:text-lg">Nenhum colaborador encontrado.</td>
+                        <td colspan="9" class="text-center py-4 sm:py-6 text-gray-500 text-sm sm:text-lg">Nenhum colaborador encontrado.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
