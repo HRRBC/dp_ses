@@ -282,13 +282,13 @@ def gerar_folha_ponto_pdf(request):
 
             can.setFont("Helvetica-Bold", 11)
             # Estas são as coordenadas que você precisará ajustar para o seu PDF
-            can.drawString(70, 679, colaborador_nome)
-            can.drawString(430, 679, matricula)
-            can.drawString(75, 651, cargo)
-            can.drawString(405, 651, setor)
+            can.drawString(75, 672, colaborador_nome)
+            can.drawString(430, 672, matricula)
+            can.drawString(80, 644, cargo)
+            can.drawString(405, 644, setor)
 
             can.setFont("Helvetica-Bold", 13)
-            can.drawString(500, 172, f"{mes_nome}/{ano}")
+            can.drawString(500, 164, f"{mes_nome}/{ano}")
 
             can.save()
             packet.seek(0)
